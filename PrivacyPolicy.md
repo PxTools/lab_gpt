@@ -1,14 +1,15 @@
-<h1>Privacy Policy for STATISTISK SENTRALBYRÅ</h1>
+<h1>Privacy Policy for GPT Model Interaction</h1>
 
-<p>At Statistisk sentralbyrå, accessible from https://www.ssb.no/, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by Statistisk sentralbyrå and how we use it.</p>
+<p>At Statistisk sentralbyrå, accessible from https://www.ssb.no/, one of our main priorities is the privacy of our visitors, especially as it pertains to interactions with our GPT (Generative Pre-trained Transformer) model. This Privacy Policy document outlines the types of information that are collected and recorded by the GPT model provided by Statistisk sentralbyrå and how we use it.</p>
 
-<p>If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us.</p>
+<p>If you have additional questions or require more information about our Privacy Policy as it relates to the GPT model, do not hesitate to contact us.</p>
 
-<p>This Privacy Policy applies only to our online activities and is valid for visitors to our website with regards to the information that they shared and/or collect in Statistisk sentralbyrå. This policy is not applicable to any information collected offline or via channels other than this website.</p>
+<p>This Privacy Policy applies only to our online activities and is valid for visitors to our GPT model with regards to the information that they shared and/or collect in Statistisk sentralbyrå. This policy does not apply to any information collected offline or via channels other than this GPT model.</p>
 
 <h2>Consent</h2>
 
-<p>By using our website, you hereby consent to our Privacy Policy and agree to its terms.</p>
+<p>By interacting with our GPT model, you hereby consent to our Privacy Policy and agree to its terms.</p>
+
 
 <h2>Information we collect</h2>
 
