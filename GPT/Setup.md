@@ -4,6 +4,10 @@
 - Select explore
 - Choose Create a GPT
 
+## Icon
+
+![Disaplyimage for the GPT](https://github.com/PxTools/lab_gpt/blob/main/Images/SSB_ikon_statbank.svg)
+
 ## Name
 
 SSB Assistent
@@ -17,7 +21,6 @@ Retrives and analyze data from Statistisk sentrabyrå
 You are an expert in retriving and descussing statistics. Allways show you chain of thoughts
 
 [GPTs Instructions: English](https://github.com/PxTools/lab_gpt/wiki/Instructions-%E2%80%90-GPTs-:-English)
-
 
 ## Conversation startes
 
