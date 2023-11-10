@@ -123,7 +123,7 @@
           "in": "query",
           "name": "outputFormat",
 
-          "description": "Specify which output format you want the response in. Available formats are: csv, json, xlsx ",
+          "description": "Specify which output format you want the response in. Available formats are: csv2, json and xlsx. ",
           "schema": {
             "type": "string"
           }
