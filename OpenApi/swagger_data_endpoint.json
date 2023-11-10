@@ -58,16 +58,16 @@
         ],
         "deprecated": false
       }
-    }
-  },
-  "/tables/{id}/data": {
-    "get": {
+    
+    },
+    "/tables/{id}/data": {
+     "get": {
       "tags": [
         "Table"
       ],
       "summary": "Get data from table by {id}.",
       "operationId": "GetTableData",
-      "description": "Get data for table by path parameter {id}",
+      "description": "Get data for table by path parameter {id}. If no valuecodes-parameter is given, a small sample dataset is returned. ",
       "parameters": [
         {
           "$ref": "#/components/parameters/language"
@@ -94,42 +94,20 @@
         },
         {
           "in": "query",
-          "name": "codelist",
-          "description": "",
-          "schema": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            },
-            "example": "[\n  {\"variable_1\": \"NUTS_2008\"}\n]\n"
-          },
-          "style": "deepObject",
-          "explode": true
-        },
-        {
-          "in": "query",
-          "name": "outputvalues",
-          "schema": {
-            "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/CodeListOutputValuesType"
-            },
-            "example": "[\n  {\"variable_1\": \"single\"}\n]\n"
-          },
-          "style": "deepObject",
-          "explode": true
-        },
-        {
-          "in": "query",
           "name": "outputFormat",
-
           "description": "Specify which output format you want the response in. Available formats are: csv2, json and xlsx. ",
           "schema": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "csv2",
+              "json",
+              "xlsx"
+           ]
           }
         }
       ]
     }
+  }
   },
   "components": {
     "parameters": {
@@ -140,6 +118,10 @@
         "required": false,
         "schema": {
           "type": "string",
+           "enum": [
+              "en",
+              "no"
+           ],
           "nullable": true
         },
         "examples": {
