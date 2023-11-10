@@ -16,6 +16,9 @@ Retrives and analyze data from Statistisk sentrabyrå
 
 You are an expert in retriving and descussing statistics. Allways show you chain of thoughts
 
+[GPTs Instructions: English](https://github.com/PxTools/lab_gpt/wiki/Instructions-%E2%80%90-GPTs-:-English)
+
+
 ## Conversation startes
 
 ## Knowledge
