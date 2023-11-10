@@ -58,111 +58,109 @@
         ],
         "deprecated": false
       }
-    }
-  },
-  "/tables/{id}/data": {
-    "get": {
-      "tags": [
-        "Table"
-      ],
-      "summary": "Get data from table by {id}.",
-      "operationId": "GetTableData",
-      "description": "Get data for table by path parameter {id}",
-      "parameters": [
-        {
-          "$ref": "#/components/parameters/language"
-        },
-        {
-          "$ref": "#/components/parameters/id"
-        },
-        {
-          "in": "query",
-          "name": "valuecodes",
-          "description": "Specify which values to select from each variable. If you want to select the value with '2PZ3L' from the variable with code 'Fornavn' the query parameter should look like this: valueCodes[Fornavn]=2PZ3L",
-          "schema": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "array",
-              "items": {
-                "type": "string"
+    },
+    "/tables/{id}/data": {
+      "get": {
+        "tags": [
+          "Table"
+        ],
+        "summary": "Get data from table by {id}.",
+        "operationId": "GetTableData",
+        "description": "Get data for table by path parameter {id}",
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "description": "Two letter language code (ISO 639), 'en' for english and 'no' for norwegian",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "examples": {
+              "X1": {
+                "value": "en",
+                "summary": "For english"
+              },
+              "X2": {
+                "value": "dk",
+                "summary": "For danish"
               }
-            },
-            "example": "valueCodes[Fornavn]=2PZ3L,2PER&valueCodes[ContentsCode]=Personer&valueCodes[Tid]=2022"
-          },
-          "style": "deepObject",
-          "explode": true
-        },
-        {
-          "in": "query",
-          "name": "codelist",
-          "description": "",
-          "schema": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            },
-            "example": "[\n  {\"variable_1\": \"NUTS_2008\"}\n]\n"
-          },
-          "style": "deepObject",
-          "explode": true
-        },
-        {
-          "in": "query",
-          "name": "outputvalues",
-          "schema": {
-            "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/CodeListOutputValuesType"
-            },
-            "example": "[\n  {\"variable_1\": \"single\"}\n]\n"
-          },
-          "style": "deepObject",
-          "explode": true
-        },
-        {
-          "in": "query",
-          "name": "outputFormat",
-
-          "description": "Specify which output format you want the response in. Available formats are: csv2, json and xlsx. ",
-          "schema": {
-            "type": "string"
           }
-        }
-      ]
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Uniqe identifier for each table. It consist of 5 numbers.",
+            "required": true,
+            "schema": {
+              "type": "string"
+          }
+          },
+          {
+            "in": "query",
+            "name": "valuecodes",
+            "description": "Specify which values to select from each variable. If you want to select the value with '2PZ3L' from the variable with code 'Fornavn' the query parameter should look like this: valueCodes[Fornavn]=2PZ3L",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "example": "valueCodes[Fornavn]=2PZ3L,2PER&valueCodes[ContentsCode]=Personer&valueCodes[Tid]=2022"
+            },
+            "style": "deepObject",
+            "explode": true
+          },
+          {
+            "in": "query",
+            "name": "codelist",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              },
+              "example": "[\n  {\"variable_1\": \"NUTS_2008\"}\n]\n"
+            },
+            "style": "deepObject",
+            "explode": true
+          },
+          {
+            "in": "query",
+            "name": "outputvalues",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "aggregated",
+                  "single"
+                ]
+              },
+              "example": "[\n  {\"variable_1\": \"single\"}\n]\n"
+            },
+            "style": "deepObject",
+            "explode": true
+          },
+          {
+            "in": "query",
+            "name": "outputFormat",
+            "required": false,
+            "description": "Specify which output format you want the response in. Available formats are: csv2, json and xlsx. ",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
     }
   },
   "components": {
-    "parameters": {
-      "language": {
-        "name": "lang",
-        "in": "query",
-        "description": "Two letter language code (ISO 639), 'en' for english and 'no' for norwegian",
-        "required": false,
-        "schema": {
-          "type": "string",
-          "nullable": true
-        },
-        "examples": {
-          "X1": {
-            "value": "en",
-            "summary": "For english"
-          },
-          "X2": {
-            "value": "dk",
-            "summary": "For danish"
-          }
-        }
-      },
-      "id": {
-        "name": "id",
-        "in": "path",
-        "description": "Uniqe identifier for each table. It consist of 5 numbers.",
-        "required": true,
-        "schema": {
-          "type": "string"
-        }
-      }
-    },
     "schemas": {}
   }
 }
