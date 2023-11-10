@@ -6,7 +6,7 @@
 
 ## Icon
 
-![Disaplyimage for the GPT](https://github.com/PxTools/lab_gpt/blob/main/Images/SSB_ikon_statbank.svg)
+![Disaplyimage for the GPT](https://github.com/PxTools/lab_gpt/blob/main/Images/GPT_icon.svg)
 
 ## Name
 
