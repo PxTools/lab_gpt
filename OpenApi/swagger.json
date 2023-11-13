@@ -32,7 +32,7 @@
           {
             "name": "query",
             "in": "query",
-            "description": "Perform a free-text search for tables using an AND search logic. This search accepts multiple keywords and synonyms. Please try various synonyms for the search terms and include both synonyms and the original search words in the query parameters for improved results. Additionally, use multiple search words for the query. You can include several synonyms for the search parameters as requested by the user",
+            "description": "Perform a free-text search for tables using an AND search logic. This search accepts multiple keywords and synonyms. Please try various synonyms for the search terms and include both synonyms and the original search words in the query parameters for improved results. Additionally, use multiple search words for the query",
             "required": false,
             "deprecated": false,
             "allowEmptyValue": false,
