@@ -59,9 +59,45 @@
         "deprecated": false
       }
     },
+    "/tables/{id}/metadata": {
+      "get": {
+        "tags": [
+          "Table"
+        ],
+        "summary": "Get Metadata about Table by {id}.",
+        "description": "**Used for listing detailed information about a specific table**\n* List all variables and values and all other metadata needed to be able to fetch data\n\n* Also links to where to:\n  + Fetch\n  - Where to get information about codelists.",
+        "operationId": "GetMetadataById",
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "description": "en for english and no for norwegian results",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": false,
+            "explode": false,
+            "allowReserved": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Uniqe identifier for each table. It consist of 5 numbers.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
     "/api/v2/tables/{id}/data": {
       "get": {
-        "tags": ["Table"],
+        "tags": [
+          "Table"
+        ],
         "summary": "Get data from table by {id}.",
         "operationId": "GetTableData",
         "description": "Get data for table by path parameter {id}",
@@ -84,7 +120,7 @@
                 "value": "dk",
                 "summary": "For danish"
               }
-            }
+          }
           },
           {
             "name": "id",
@@ -95,7 +131,7 @@
               "type": "string"
             }
           },
-
+          
           {
             "in": "query",
             "name": "outputFormat",
