@@ -13,13 +13,13 @@
   "paths": {
     "/api/v2/tables": {
       "get": {
-        "description": "lists all tables with statistics, If the user speaks another language than English, translate their request into English. You shoud use synonyms in the query params for better results, and also use multiple search words. You can put in many synonyms for the search params the user asks for. ",
+        "description": "lists all tables with statistics, If the user speaks another language than English, translate their request into English. You shoud use synonyms and the original seach-word in the query params for better results, and also use multiple search words. You can put in many synonyms for the search params the user asks for. ",
         "operationId": "getTables",
         "parameters": [
           {
             "name": "lang",
             "in": "query",
-            "description": "freetext search for tables. This is AND search. Accepts multiple search words",
+            "description": "Two letter language code (ISO 639), 'en' for english and 'no' for norwegian",
             "required": false,
             "deprecated": false,
             "allowEmptyValue": false,
@@ -32,7 +32,7 @@
           {
             "name": "query",
             "in": "query",
-            "description": "freetext search for tables",
+            "description": "freetext search for tables. This is AND search. Accepts multiple search words. Try with many differetn synonyms in this parameter, and with many words. You shoud use synonyms and the original seach-word in the query params for better results, and also use multiple search words. You can put in many synonyms for the search params the user asks for.",
             "required": false,
             "deprecated": false,
             "allowEmptyValue": false,
