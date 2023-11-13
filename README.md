@@ -1,13 +1,17 @@
-# disclaimer
+# Setup
 
-We are just testing ChatGPT stuff here.
+## GPTs
+  1. Open the [Setup](https://github.com/PxTools/lab_gpt/blob/main/GPT/Setup.md) file
+  2. Go to chat.openai.com
+  3. Find the explore menu element
+  4. Select "create a GPT"
+  5. Go to configure
+  6. Insert the text and files from the md file
 
-# lab_gpt
 
-Testing ChatGPT stuff for pxwebapi2
+## disclaimer
 
-# GPT
-Gpt folder is for information and code regarding creating a custom GPT
+This repository is currently under contstruction and will change frequently. 
+Used at your own risk. Data provided is testdata
 
-# OpenApi
-We are working with the official OpenApi spec from PxTools to create a custom OpenApi spec for the Plugin and GPT. Working files are added to the OpenApi folder
+
