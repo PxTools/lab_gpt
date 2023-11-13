@@ -59,7 +59,7 @@
         "deprecated": false
       }
     },
-    "/tables/{id}/metadata": {
+    "/api/v2/tables/{id}/metadata": {
       "get": {
         "tags": [
           "Table"
@@ -120,7 +120,7 @@
                 "value": "dk",
                 "summary": "For danish"
               }
-          }
+            }
           },
           {
             "name": "id",
@@ -138,8 +138,8 @@
             "required": false,
             "description": "Specify which output format you want the response in. Available formats are: csv2, json and xlsx. ",
             "schema": {
-              "type": "string"
-            }
+                "type": "string"
+             }
           }
         ]
       }
