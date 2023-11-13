@@ -1,20 +1,21 @@
 #Create a custom GPT
 
-- Sign in to chat.openai.com
-- Select explore
-- Choose Create a GPT
+This is the instructions to how to setup a custom GPT for Statistics Norway
 
 ## Icon
 
-![Disaplyimage for the GPT](https://github.com/PxTools/lab_gpt/blob/main/Images/GPT_icon.svg)
+![Disaplyimage for the GPT](https://github.com/PxTools/lab_gpt/blob/main/Images/SSB-Main-icon.png)
 
 ## Name
+
 SSB Assistent
 
 ## Description
+
 Retrives and analyze data from Statistisk sentrabyrå
 
 ## Instruction
+
 [GPTs Instructions: English](https://github.com/PxTools/lab_gpt/wiki/Instructions-%E2%80%90-GPTs-:-English)
 
 ## Conversation startes
@@ -22,7 +23,9 @@ Retrives and analyze data from Statistisk sentrabyrå
 ## Knowledge
 
 ## Capabilities
+
 - Code Interpreter
-  
+
 ## Actions
+
 [Swagger docs](https://github.com/PxTools/lab_gpt/blob/main/OpenApi/swagger.json)
