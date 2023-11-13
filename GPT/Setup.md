@@ -4,6 +4,10 @@
 - Select explore
 - Choose Create a GPT
 
+## Icon
+
+![Disaplyimage for the GPT](https://github.com/PxTools/lab_gpt/blob/main/Images/GPT_icon.svg)
+
 ## Name
 SSB Assistent
 
