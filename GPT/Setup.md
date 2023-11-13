@@ -1,6 +1,6 @@
 #Create a custom GPT
 
-This is the instructions to how to setup a custom GPT for Statistics Norway
+**This is the instructions to how to setup a custom GPT for Statistics Norway. For more instructions see the readme file in root**
 
 ## Icon
 
