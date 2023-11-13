@@ -59,7 +59,7 @@
         "deprecated": false
       }
     },
-    "/tables/{id}/data": {
+    "/api/v2/tables/{id}/data": {
       "get": {
         "tags": [
           "Table"
