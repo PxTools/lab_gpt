@@ -8,8 +8,10 @@
   5. Go to configure
   6. Insert the text and files from the md file
 
+## Plugins
+  To be continued
 
-## disclaimer
+## Disclaimer
 
 This repository is currently under contstruction and will change frequently. 
 Used at your own risk. Data provided is testdata
