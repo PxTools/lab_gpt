@@ -16,7 +16,7 @@ Retrives and analyze data from Statistisk sentrabyrå
 
 ## Instruction
 
-[GPTs Instructions: English](https://github.com/PxTools/lab_gpt/wiki/Instructions-%E2%80%90-GPTs-:-English)
+[GPTs Instructions: ](https://github.com/PxTools/lab_gpt/wiki/Instructions-%E2%80%90-GPTs)
 
 ## Conversation startes
 
