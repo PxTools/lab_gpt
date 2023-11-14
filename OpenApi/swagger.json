@@ -100,7 +100,7 @@
         ],
         "summary": "Get data from table by {id}.",
         "operationId": "GetTableData",
-        "description": "Get data for table by path parameter {id}",
+        "description": "Get data for table by path parameter {id}. Without the valuecodes-parameter you get a small sample of the data. With the valuecodes-parameter you can spesify the values you want for each dimention The number of cells per extraction is 500000.",
         "parameters": [
           {
             "name": "lang",
@@ -131,7 +131,17 @@
               "type": "string"
             }
           },
-          
+          {
+            "in": "query",
+            "name": "valuecodes",
+            "description": "Specify which values to select from each variable. If you want to select the value with '2PZ3L' from the variable with code 'Fornavn' the query parameter should look like this: valueCodes[Fornavn]=2PZ3L",
+            "schema": {
+                "type": "string",
+                "examples": ["valueCodes[Fornavn]=2PZ3L,2PER&valueCodes[ContentsCode]=Personer&valueCodes[Tid]=2022"]
+            },
+            "style": "deepObject",
+            "explode": true
+          },
           {
             "in": "query",
             "name": "outputFormat",
