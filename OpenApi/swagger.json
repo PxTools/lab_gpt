@@ -58,99 +58,7 @@
           }
         ],
         "deprecated": false
-      },
-      "post": {
-  "tags": [
-    "Table"
-  ],
-  "summary": "Get data from table by {id}.",
-  "operationId": "GetTableDataByPost",
-  "parameters": [
-    {
-      "name": "lang",
-      "in": "query",
-      "description": "Two letter language code (ISO 639), 'en' for English and 'no' for Norwegian",
-      "required": false,
-      "schema": {
-        "type": "string"
-      },
-      "examples": {
-        "X1": {
-          "value": "en",
-          "summary": "For English"
-        },
-        "X2": {
-          "value": "no",
-          "summary": "For Norwegian"
-        }
       }
-    },
-    {
-      "name": "id",
-      "in": "path",
-      "description": "Unique identifier for each table. It consists of 5 numbers.",
-      "required": true,
-      "schema": {
-        "type": "string"
-      }
-    },
-    {
-      "in": "query",
-      "name": "outputFormat",
-      "schema": {
-        "type": "string"
-      }
-    }
-  ],
-  "requestBody": {
-    "description": "Request body for data selection",
-    "required": true,
-    "content": {
-      "application/json": {
-        "schema": {
-          "type": "object",
-          "properties": {
-            "selection": {
-              "type": "array",
-              "description": "An array of selection criteria.",
-              "items": {
-                "type": "object",
-                "description": "Details of an individual selection criterion.",
-                "properties": {
-                  "variableCode": {
-                    "type": "string",
-                    "description": "The code of the variable to be selected."
-                  },
-                  "codeList": {
-                    "type": "string",
-                    "description": "The code list associated with the variable."
-                  },
-                  "outputValues": {
-                    "type": "integer",
-                    "minimum": 1,
-                    "description": "The number of values to output. Must be at least 1."
-                  },
-                  "valueCodes": {
-                    "type": "array",
-                    "description": "An array of value codes to be included in the selection.",
-                    "items": {
-                      "type": "string",
-                      "description": "A specific code value within the variable's code list."
-                    }
-                  }
-                },
-                "required": ["variableCode", "codeList", "outputValues", "valueCodes"]
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "responses": {
-
-  }
-}
     },
     "/api/v2/tables/{id}/metadata": {
       "get": {
@@ -187,65 +95,92 @@
       }
     },
     "/api/v2/tables/{id}/data": {
-      "get": {
+
+            "post": {
         "tags": [
           "Table"
         ],
-        "summary": "Get data from table by {id}.",
-        "operationId": "GetTableData",
-        "description": "Get data for table by path parameter {id}. Without the valuecodes-parameter you get a small sample of the data. With the valuecodes-parameter you can spesify the values you want for each dimention The number of cells per extraction is 500000.",
-        "parameters": [
-          {
-            "name": "lang",
-            "in": "query",
-            "description": "Two letter language code (ISO 639), 'en' for english and 'no' for norwegian",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "null": true
-            },
-            "examples": {
-              "X1": {
-                "value": "en",
-                "summary": "For english"
-              },
-              "X2": {
-                "value": "dk",
-                "summary": "For danish"
-              }
-            }
+    "summary": "Get data from table by {id}.",
+    "operationId": "GetTableDataByPost",
+    "parameters": [
+      {
+        "name": "lang",
+        "in": "query",
+        "description": "Two letter language code (ISO 639), 'en' for English and 'no' for Norwegian",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "examples": {
+          "X1": {
+            "value": "en",
+            "summary": "For English"
           },
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Uniqe identifier for each table. It consist of 5 numbers.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "in": "query",
-            "name": "valuecodes",
-            "description": "Specify which values to select from each variable. If you want to select the value with '2PZ3L' from the variable with code 'Fornavn' the query parameter should look like this: valueCodes[Fornavn]=2PZ3L",
-            "schema": {
-                "type": "string",
-                "examples": ["valueCodes[Fornavn]=2PZ3L,2PER&valueCodes[ContentsCode]=Personer&valueCodes[Tid]=2022"]
-            },
-            "style": "deepObject",
-            "explode": true
-          },
+          "X2": {
+            "value": "no",
+            "summary": "For Norwegian"
+          }
+        }
+      },
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Unique identifier for each table. It consists of 5 numbers.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
           {
             "in": "query",
             "name": "outputFormat",
             "required": false,
             "description": "Specify which output format you want the response in. Available formats are: csv2, json and xlsx. ",
             "schema": {
-                "type": "string"
-             }
+              "type": "string"
+            }
           }
-        ]
+    ],
+    "requestBody": {
+      "description": "Request body for data selection",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "selection": {
+                "type": "array",
+                "description": "An array of selection criteria.",
+                "items": {
+                  "type": "object",
+                  "description": "Details of an individual selection criterion.",
+                  "properties": {
+                    "variableCode": {
+                      "type": "string",
+                      "description": "The code of the variable to be selected."
+                    },
+                    "valueCodes": {
+                      "type": "array",
+                      "description": "An array of value codes to be included in the selection.",
+                      "items": {
+                        "type": "string",
+                        "description": "A specific code value within the variable's code list."
+                      }
+                    }
+                  },
+                  "required": ["variableCode", "codeList", "outputValues", "valueCodes"]
+                }
+              }
+            }
+          }
+        }
       }
+    },
+    "responses": {
+
+    }
+  }
     }
   },
   "components": {
