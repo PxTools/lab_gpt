@@ -52,7 +52,8 @@
             "explode": false,
             "allowReserved": false,
             "schema": {
-              "type": "integer"
+              "type": "integer",
+                  "minimum":15
             }
           }
         ],
