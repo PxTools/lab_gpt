@@ -21,7 +21,8 @@ Retrives and analyze data from Statistisk sentrabyrå
 ## Conversation startes
 
 ## Knowledge
-
+- [GPTs Knowledge: ](https://github.com/PxTools/lab_gpt/tree/main/Knowledge)
+- 
 ## Capabilities
 
 - Code Interpreter
