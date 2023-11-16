@@ -19,7 +19,10 @@ Retrives and analyze data from Statistisk sentrabyrå
 [GPTs Instructions: ](https://github.com/PxTools/lab_gpt/wiki/Instructions-%E2%80%90-GPTs)
 
 ## Conversation startes
-
+- Ta en titt på  tabell 12880
+- What should I ask you?
+- Do you have any data on unemployment?
+  
 ## Knowledge
 
 [GPTs Knowledge: ](https://github.com/PxTools/lab_gpt/tree/main/Knowledge)
