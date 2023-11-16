@@ -1,0 +1,168 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PxWeb",
+    "description": "Official statistical data from Norway",
+    "version": "v0.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://data.qa.ssb.no"
+    }
+  ],
+  "paths": {
+    "/api/v0/{lang}/table": {
+      "get": {
+        "description": "lists all tables with statistics, If the user speaks another language than English, translate their request into English. You shoud use synonyms and the original seach-word in the query params, and also use multiple search words. You can put in many synonyms for the search params the user asks for",
+        "operationId": "getTables",
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "path",
+            "description": "Two letter language code (ISO 639), 'en' for english and 'no' for norwegian",
+            "required": true,
+            "deprecated": false,
+            "allowEmptyValue": false,
+            "explode": false,
+            "allowReserved": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Perform a free-text search for tables using an AND search logic. This search accepts multiple keywords and synonyms. Please try various synonyms for the search terms and include both synonyms and the original search words in the query parameters for improved results. Additionally, use multiple search words for the query",
+            "required": true,
+            "deprecated": false,
+            "allowEmptyValue": false,
+            "explode": false,
+            "allowReserved": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/api/v0/{lang}/table/{id}": {
+      "get": {
+        "tags": [
+          "Table"
+        ],
+        "summary": "Get Metadata about Table by {id}.",
+        "description": "Used for listing detailed information about a specific table List all variables and values and all other metadata needed to be able to fetch data Also links to where to:  + Fetch. Where to get information about codelists",
+        "operationId": "GetMetadataById",
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "path",
+            "description": "Two letter language code (ISO 639), 'en' for english and 'no' for norwegian",
+            "required": true,
+            "deprecated": false,
+            "allowEmptyValue": false,
+            "explode": false,
+            "allowReserved": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Uniqe identifier for each table. It consist of 5 numbers.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    ,
+
+    "post": {
+        "tags": [
+          "Table"
+        ],
+    "summary": "Get data from table by {id}.",
+    "operationId": "GetTableDataByPost",
+    "parameters": [
+      {
+            "name": "lang",
+            "in": "path",
+            "description": "Two letter language code (ISO 639), 'en' for english and 'no' for norwegian",
+            "required": true,
+            "deprecated": false,
+            "allowEmptyValue": false,
+            "explode": false,
+            "allowReserved": false,
+            "schema": {
+              "type": "string"
+            }
+      },
+      {
+        "name": "id",
+        "in": "path",
+        "description": "Unique identifier for each table. It consists of 5 numbers.",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+          {
+            "in": "query",
+            "name": "outputFormat",
+            "required": false,
+            "description": "Specify which output format you want the response in. Available formats are: csv2, json and xlsx. ",
+            "schema": {
+              "type": "string"
+            }
+          }
+    ],
+    "requestBody": {
+      "description": "Request body for data selection",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "selection": {
+                "type": "array",
+                "description": "An array of selection criteria.",
+                "items": {
+                  "type": "object",
+                  "description": "Details of an individual selection criterion.",
+                  "properties": {
+                    "variableCode": {
+                      "type": "string",
+                      "description": "The code of the variable to be selected."
+                    },
+                    "valueCodes": {
+                      "type": "array",
+                      "description": "An array of value codes to be included in the selection.",
+                      "items": {
+                        "type": "string",
+                        "description": "A specific code value within the variable's code list."
+                      }
+                    }
+                  },
+                  "required": ["variableCode", "codeList", "outputValues", "valueCodes"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+
+    }
+  }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}
