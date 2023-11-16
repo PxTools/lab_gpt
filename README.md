@@ -6,7 +6,7 @@
   3. Find the explore menu element
   4. Select "create a GPT"
   5. Go to configure
-  6. Insert the text and files from the md file
+  6. Insert the text and files from the setup file
 
 # Plugins
   To be continued
