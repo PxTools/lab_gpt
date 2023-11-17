@@ -25,6 +25,9 @@ Retrives and analyze data from Statistisk sentrabyrå
   
 ## Knowledge
 
+It is possible to upload the file to the model in advance. In this context, this is referred to as Knowledge. We have created a file that contains all table names and table labels from Statistics Norway's statistics bank (SSB) to enhance the model's vocabulary when it searches for tables. The idea is that this will help the model generate more relevant queries to the database.
+
+
 [GPTs Knowledge: ](https://github.com/PxTools/lab_gpt/tree/main/Knowledge)
 
  
