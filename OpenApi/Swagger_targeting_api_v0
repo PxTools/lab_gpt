@@ -128,31 +128,52 @@
           "schema": {
             "type": "object",
             "properties": {
-              "selection": {
-                "type": "array",
-                "description": "An array of selection criteria.",
-                "items": {
-                  "type": "object",
-                  "description": "Details of an individual selection criterion.",
-                  "properties": {
-                    "variableCode": {
-                      "type": "string",
-                      "description": "The code of the variable to be selected."
+			         "query": {
+			           "type": "array",
+                 "description": "An array of holding selection criteria for each variable.",
+                 "items": {
+			              "type": "object",
+                    "properties": {
+					              "code": {
+                           "type": "string",
+                           "description": "The code of the variable."
+                        },
+                        "selection": {
+                            "type": "object",
+                            "description": "Details of an individual selection criterion.",
+                            "properties": {
+                                 "filter": {
+                                    "type": "string",
+                                    "description": "Should allway be 'item'."
+                                 },
+                                 "values": {
+                                    "type": "array",
+                                    "description": "An array of value codes to be included in the selection.",
+                                    "items": {
+                                        "type": "string",
+                                        "description": "A specific code value within the variable's code list."
+                                    }
+                                 }
+							              }
+						            }
                     },
-                    "valueCodes": {
-                      "type": "array",
-                      "description": "An array of value codes to be included in the selection.",
-                      "items": {
-                        "type": "string",
-                        "description": "A specific code value within the variable's code list."
-                      }
-                    }
-                  },
-                  "required": ["variableCode", "codeList", "outputValues", "valueCodes"]
-                }
-              }
+                    "required": ["code", "selection"]
+                   }
+               },
+               "response": {
+                   "type": "object",
+                   "description": "Details of an response",
+                   "properties": {
+                       "response": {
+                          "type": "string",
+                          "description": "Should allway be 'px'."
+                        }
+                   }
+               }
             }
           }
+
+
         }
       }
     },
