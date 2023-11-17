@@ -39,4 +39,12 @@ We are currently in the process of uploading all the metadata as knowledge. This
 
 ## Actions
 
-[Swagger docs](https://github.com/PxTools/lab_gpt/blob/main/OpenApi/swagger.json)
+When setting up the model, it is possible to add 'Actions'. An action consists of an OpenAPI Swagger. This Swagger enables the model to interpret the API and make use of it.
+
+Sagger to StatBank Norway:  
+[Swagger doc: ](https://github.com/PxTools/lab_gpt/blob/main/OpenApi/swagger.json)
+
+We do not want the model to communicate with the database between the hours of 06:50 and 7:20. Therefore, a separate Swagger has been set up to retrieve the local time in Oslo:
+
+[Swagger TimeRestriction: ](https://github.com/PxTools/lab_gpt/blob/TestKnowledge/GPT/TimeRestrictions/time.json)
+
