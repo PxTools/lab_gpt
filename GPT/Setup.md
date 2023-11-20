@@ -15,7 +15,8 @@ SSB Assistent
 
 ## Description
 
-Retrives and analyze data from Statistisk sentrabyrå
+Retrives and analyze data from Statistisk sentrabyrå,
+or look [here](https://github.com/PxTools/lab_gpt/wiki/GPTs-%E2%80%90-Description)
 
 ## Instruction
 
