@@ -109,16 +109,7 @@
         "schema": {
           "type": "string"
         }
-      },
-          {
-            "in": "query",
-            "name": "outputFormat",
-            "required": false,
-            "description": "Specify which output format you want the response in. Available formats are: csv2, json and xlsx. ",
-            "schema": {
-              "type": "string"
-            }
-          }
+      }
     ],
     "requestBody": {
       "description": "Request body for data selection",
@@ -144,10 +135,12 @@
                             "properties": {
                                  "filter": {
                                     "type": "string",
-                                    "description": "Should allway be 'item'."
+                                    "enum": ["item"],
+                                    "description": "This field should allway be 'item'."
                                  },
                                  "values": {
                                     "type": "array",
+                                    "minItems": 1,
                                     "description": "An array of value codes to be included in the selection.",
                                     "items": {
                                         "type": "string",
@@ -164,9 +157,9 @@
                    "type": "object",
                    "description": "Details of an response",
                    "properties": {
-                       "response": {
+                       "format": {
                           "type": "string",
-                          "description": "Should allway be 'px'."
+                          "description": "Format of the response. Options are 'px'."
                         }
                    }
                }
