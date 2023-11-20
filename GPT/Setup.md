@@ -6,10 +6,8 @@
 
 ![Disaplyimage for the GPT dark version](https://github.com/PxTools/lab_gpt/blob/main/Images/SSB-Main-icon.png)
 
+[SSB logo, dark:](https://github.com/PxTools/lab_gpt/blob/main/Images/SSB-Main-icon.png)
 [SSB logo, white transparent: ](https://github.com/PxTools/lab_gpt/blob/main/Images/SSB%20white.png)
-
-
-
 
 
 ## Name
