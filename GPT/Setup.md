@@ -59,5 +59,6 @@ Sagger v0 to StatBank Norway:
 [Swagger doc, v0: ](https://github.com/PxTools/lab_gpt/blob/main/OpenApi/swagger_v0.json)
 
 
+
 [Swagger TimeRestriction: ](https://github.com/PxTools/lab_gpt/blob/TestKnowledge/GPT/TimeRestrictions/time.json)
 
