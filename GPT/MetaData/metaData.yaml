@@ -1,0 +1,569 @@
+aggregationAllowed: false
+id: '13760'
+label: '13760: Arbeidsstyrken, sysselsatte, arbeidsledige  og utførte ukeverk for
+  personer 15-74 år, PxcMetaTitleBy kjønn, alder, type justering, statistikkvariabel
+  PxcMetaTitleAnd måned'
+language: 'no'
+notes:
+- mandatory: false
+  text: 'Fra og med 24. november 2022 erstatter tabell 13760 tabell 13332 i månedspubliseringene
+    av AKU-tall. Tabell 13760 er bruddjustert og inneholder også tremåneders glidende
+    gjennomsnitt av sesongjusterte månedstall, altså som tabell 13332. Det som er
+    nytt er for det første at den nye tabellen også inneholder sesongjusterte månedstall,
+    altså tallene som danner grunnlaget for de tremåneders glidende gjennomsnittene.
+    For det andre inneholder den trendtall, som representerer den langsiktige tendensen.
+    Trendtallene er glattere enn den sesongjusterte serien, som har nokså høy volatilitet.
+    For det tredje inneholder den nye tabellen månedstall som ikke er sesongjustert.
+    Ettersom det er høy volatilitet i både månedstallene som er sesongjustert og ikke,
+    er det trendtallene og de tremåneders glidende gjennomsnittene av sesongjusterte
+    månedstall vi anbefaler å bruke. De to andre seriene offentliggjør vi hovedsakelig
+    av hensyn til ekspertbrukere av statistikken.
+
+    <br><br>
+
+    Tallene er bruddjustert grunnet et brudd mellom 2020 og 2021. Tallene før 2021
+    er justert til nivået etter bruddet. Utførte ukeverk er ikke bruddjustert grunnet
+    problemer med å skille eventuell effekt av koronakrisen fra eventuell effekt av
+    omleggingen av AKU. Tabellen inneholder ikke befolkningstall for årene 2006-2008,
+    og følgelig heller ikke tall for sysselsatte eller arbeidsstyrken i prosent av
+    befolkningen for de årene. Se Om statistikken for mer informasjon.'
+officalStatistics: true
+source: Statistisk sentralbyrå
+subjectCode: al
+subjectLabel: Arbeid og lønn
+updated: '2023-04-26T06:00:00Z'
+variables:
+- elimination: true
+  id: Kjonn
+  label: kjønn
+  type: RegularVariable
+  values:
+  - code: '0'
+    label: Begge kjønn
+  - code: '1'
+    label: Menn
+  - code: '2'
+    label: Kvinner
+- elimination: true
+  id: Alder
+  label: alder
+  type: RegularVariable
+  values:
+  - code: 15-74
+    label: 15-74 år
+  - code: 15-24
+    label: 15-24 år
+  - code: 25-74
+    label: 25-74 år
+- elimination: false
+  id: Justering
+  label: type justering
+  type: RegularVariable
+  values:
+  - code: T
+    label: Trend
+  - code: 3MGG
+    label: Sesongjustert, 3-måneders glidende gjennomsnitt
+  - code: S
+    label: Sesongjustert
+  - code: IS
+    label: Ikke sesongjustert
+- id: ContentsCode
+  label: statistikkvariabel
+  type: ContentsVariable
+  values:
+  - adjustment: WorkAndSes
+    baseperiod: ''
+    code: Arbeidsstyrken
+    label: Arbeidsstyrken (1000 personer)
+    measuringType: Average
+    preferedNumberOfDecimals: 0
+    priceType: Undefined
+    refrencePeriod: Måneden
+    unit: 1000 personer
+  - adjustment: None
+    baseperiod: ''
+    code: Sysselsatte
+    label: Sysselsatte (1000 personer)
+    measuringType: Average
+    preferedNumberOfDecimals: 0
+    priceType: Undefined
+    refrencePeriod: Måneden
+    unit: 1000 personer
+  - adjustment: WorkAndSes
+    baseperiod: ''
+    code: Ukeverk
+    label: Utførte ukeverk (1000 ukeverk) à 37,5 timer
+    measuringType: Average
+    preferedNumberOfDecimals: 0
+    priceType: Undefined
+    refrencePeriod: Måneden
+    unit: 1000 ukeverk
+  - adjustment: WorkAndSes
+    baseperiod: ''
+    code: Arbeidsledige
+    label: Arbeidsledige (1000 personer)
+    measuringType: Average
+    preferedNumberOfDecimals: 0
+    priceType: Undefined
+    refrencePeriod: Måneden
+    unit: 1000 personer
+  - adjustment: WorkAndSes
+    baseperiod: ''
+    code: ArbStyrkProsBefolkn
+    label: Arbeidsstyrken i prosent av befolkningen
+    measuringType: Average
+    preferedNumberOfDecimals: 1
+    priceType: Undefined
+    refrencePeriod: Måneden
+    unit: prosent
+  - adjustment: WorkAndSes
+    baseperiod: ''
+    code: SysselProsBefolkn
+    label: Sysselsatte i prosent av befolkningen
+    measuringType: Average
+    preferedNumberOfDecimals: 1
+    priceType: Undefined
+    refrencePeriod: Måneden
+    unit: prosent
+  - adjustment: WorkAndSes
+    baseperiod: ''
+    code: ArbledProsArbstyrk
+    label: Arbeidsledige i prosent av arbeidsstyrken
+    measuringType: Average
+    preferedNumberOfDecimals: 1
+    priceType: Undefined
+    refrencePeriod: Måneden
+    unit: prosent
+  - adjustment: None
+    baseperiod: ''
+    code: Befolkningen
+    label: Befolkningen (1000 personer)
+    measuringType: Average
+    preferedNumberOfDecimals: 0
+    priceType: Undefined
+    refrencePeriod: Måneden
+    unit: 1000 personer
+- firstPeriod: 2006M01
+  id: Tid
+  label: måned
+  lastPeriod: 2023M04
+  timeUnit: Monthly
+  type: TimeVariable
+  values:
+  - code: 2006M01
+    label: 2006M01
+  - code: 2006M02
+    label: 2006M02
+  - code: 2006M03
+    label: 2006M03
+  - code: 2006M04
+    label: 2006M04
+  - code: 2006M05
+    label: 2006M05
+  - code: 2006M06
+    label: 2006M06
+  - code: 2006M07
+    label: 2006M07
+  - code: 2006M08
+    label: 2006M08
+  - code: 2006M09
+    label: 2006M09
+  - code: 2006M10
+    label: 2006M10
+  - code: 2006M11
+    label: 2006M11
+  - code: 2006M12
+    label: 2006M12
+  - code: 2007M01
+    label: 2007M01
+  - code: 2007M02
+    label: 2007M02
+  - code: 2007M03
+    label: 2007M03
+  - code: 2007M04
+    label: 2007M04
+  - code: 2007M05
+    label: 2007M05
+  - code: 2007M06
+    label: 2007M06
+  - code: 2007M07
+    label: 2007M07
+  - code: 2007M08
+    label: 2007M08
+  - code: 2007M09
+    label: 2007M09
+  - code: 2007M10
+    label: 2007M10
+  - code: 2007M11
+    label: 2007M11
+  - code: 2007M12
+    label: 2007M12
+  - code: 2008M01
+    label: 2008M01
+  - code: 2008M02
+    label: 2008M02
+  - code: 2008M03
+    label: 2008M03
+  - code: 2008M04
+    label: 2008M04
+  - code: 2008M05
+    label: 2008M05
+  - code: 2008M06
+    label: 2008M06
+  - code: 2008M07
+    label: 2008M07
+  - code: 2008M08
+    label: 2008M08
+  - code: 2008M09
+    label: 2008M09
+  - code: 2008M10
+    label: 2008M10
+  - code: 2008M11
+    label: 2008M11
+  - code: 2008M12
+    label: 2008M12
+  - code: 2009M01
+    label: 2009M01
+  - code: 2009M02
+    label: 2009M02
+  - code: 2009M03
+    label: 2009M03
+  - code: 2009M04
+    label: 2009M04
+  - code: 2009M05
+    label: 2009M05
+  - code: 2009M06
+    label: 2009M06
+  - code: 2009M07
+    label: 2009M07
+  - code: 2009M08
+    label: 2009M08
+  - code: 2009M09
+    label: 2009M09
+  - code: 2009M10
+    label: 2009M10
+  - code: 2009M11
+    label: 2009M11
+  - code: 2009M12
+    label: 2009M12
+  - code: 2010M01
+    label: 2010M01
+  - code: 2010M02
+    label: 2010M02
+  - code: 2010M03
+    label: 2010M03
+  - code: 2010M04
+    label: 2010M04
+  - code: 2010M05
+    label: 2010M05
+  - code: 2010M06
+    label: 2010M06
+  - code: 2010M07
+    label: 2010M07
+  - code: 2010M08
+    label: 2010M08
+  - code: 2010M09
+    label: 2010M09
+  - code: 2010M10
+    label: 2010M10
+  - code: 2010M11
+    label: 2010M11
+  - code: 2010M12
+    label: 2010M12
+  - code: 2011M01
+    label: 2011M01
+  - code: 2011M02
+    label: 2011M02
+  - code: 2011M03
+    label: 2011M03
+  - code: 2011M04
+    label: 2011M04
+  - code: 2011M05
+    label: 2011M05
+  - code: 2011M06
+    label: 2011M06
+  - code: 2011M07
+    label: 2011M07
+  - code: 2011M08
+    label: 2011M08
+  - code: 2011M09
+    label: 2011M09
+  - code: 2011M10
+    label: 2011M10
+  - code: 2011M11
+    label: 2011M11
+  - code: 2011M12
+    label: 2011M12
+  - code: 2012M01
+    label: 2012M01
+  - code: 2012M02
+    label: 2012M02
+  - code: 2012M03
+    label: 2012M03
+  - code: 2012M04
+    label: 2012M04
+  - code: 2012M05
+    label: 2012M05
+  - code: 2012M06
+    label: 2012M06
+  - code: 2012M07
+    label: 2012M07
+  - code: 2012M08
+    label: 2012M08
+  - code: 2012M09
+    label: 2012M09
+  - code: 2012M10
+    label: 2012M10
+  - code: 2012M11
+    label: 2012M11
+  - code: 2012M12
+    label: 2012M12
+  - code: 2013M01
+    label: 2013M01
+  - code: 2013M02
+    label: 2013M02
+  - code: 2013M03
+    label: 2013M03
+  - code: 2013M04
+    label: 2013M04
+  - code: 2013M05
+    label: 2013M05
+  - code: 2013M06
+    label: 2013M06
+  - code: 2013M07
+    label: 2013M07
+  - code: 2013M08
+    label: 2013M08
+  - code: 2013M09
+    label: 2013M09
+  - code: 2013M10
+    label: 2013M10
+  - code: 2013M11
+    label: 2013M11
+  - code: 2013M12
+    label: 2013M12
+  - code: 2014M01
+    label: 2014M01
+  - code: 2014M02
+    label: 2014M02
+  - code: 2014M03
+    label: 2014M03
+  - code: 2014M04
+    label: 2014M04
+  - code: 2014M05
+    label: 2014M05
+  - code: 2014M06
+    label: 2014M06
+  - code: 2014M07
+    label: 2014M07
+  - code: 2014M08
+    label: 2014M08
+  - code: 2014M09
+    label: 2014M09
+  - code: 2014M10
+    label: 2014M10
+  - code: 2014M11
+    label: 2014M11
+  - code: 2014M12
+    label: 2014M12
+  - code: 2015M01
+    label: 2015M01
+  - code: 2015M02
+    label: 2015M02
+  - code: 2015M03
+    label: 2015M03
+  - code: 2015M04
+    label: 2015M04
+  - code: 2015M05
+    label: 2015M05
+  - code: 2015M06
+    label: 2015M06
+  - code: 2015M07
+    label: 2015M07
+  - code: 2015M08
+    label: 2015M08
+  - code: 2015M09
+    label: 2015M09
+  - code: 2015M10
+    label: 2015M10
+  - code: 2015M11
+    label: 2015M11
+  - code: 2015M12
+    label: 2015M12
+  - code: 2016M01
+    label: 2016M01
+  - code: 2016M02
+    label: 2016M02
+  - code: 2016M03
+    label: 2016M03
+  - code: 2016M04
+    label: 2016M04
+  - code: 2016M05
+    label: 2016M05
+  - code: 2016M06
+    label: 2016M06
+  - code: 2016M07
+    label: 2016M07
+  - code: 2016M08
+    label: 2016M08
+  - code: 2016M09
+    label: 2016M09
+  - code: 2016M10
+    label: 2016M10
+  - code: 2016M11
+    label: 2016M11
+  - code: 2016M12
+    label: 2016M12
+  - code: 2017M01
+    label: 2017M01
+  - code: 2017M02
+    label: 2017M02
+  - code: 2017M03
+    label: 2017M03
+  - code: 2017M04
+    label: 2017M04
+  - code: 2017M05
+    label: 2017M05
+  - code: 2017M06
+    label: 2017M06
+  - code: 2017M07
+    label: 2017M07
+  - code: 2017M08
+    label: 2017M08
+  - code: 2017M09
+    label: 2017M09
+  - code: 2017M10
+    label: 2017M10
+  - code: 2017M11
+    label: 2017M11
+  - code: 2017M12
+    label: 2017M12
+  - code: 2018M01
+    label: 2018M01
+  - code: 2018M02
+    label: 2018M02
+  - code: 2018M03
+    label: 2018M03
+  - code: 2018M04
+    label: 2018M04
+  - code: 2018M05
+    label: 2018M05
+  - code: 2018M06
+    label: 2018M06
+  - code: 2018M07
+    label: 2018M07
+  - code: 2018M08
+    label: 2018M08
+  - code: 2018M09
+    label: 2018M09
+  - code: 2018M10
+    label: 2018M10
+  - code: 2018M11
+    label: 2018M11
+  - code: 2018M12
+    label: 2018M12
+  - code: 2019M01
+    label: 2019M01
+  - code: 2019M02
+    label: 2019M02
+  - code: 2019M03
+    label: 2019M03
+  - code: 2019M04
+    label: 2019M04
+  - code: 2019M05
+    label: 2019M05
+  - code: 2019M06
+    label: 2019M06
+  - code: 2019M07
+    label: 2019M07
+  - code: 2019M08
+    label: 2019M08
+  - code: 2019M09
+    label: 2019M09
+  - code: 2019M10
+    label: 2019M10
+  - code: 2019M11
+    label: 2019M11
+  - code: 2019M12
+    label: 2019M12
+  - code: 2020M01
+    label: 2020M01
+  - code: 2020M02
+    label: 2020M02
+  - code: 2020M03
+    label: 2020M03
+  - code: 2020M04
+    label: 2020M04
+  - code: 2020M05
+    label: 2020M05
+  - code: 2020M06
+    label: 2020M06
+  - code: 2020M07
+    label: 2020M07
+  - code: 2020M08
+    label: 2020M08
+  - code: 2020M09
+    label: 2020M09
+  - code: 2020M10
+    label: 2020M10
+  - code: 2020M11
+    label: 2020M11
+  - code: 2020M12
+    label: 2020M12
+  - code: 2021M01
+    label: 2021M01
+  - code: 2021M02
+    label: 2021M02
+  - code: 2021M03
+    label: 2021M03
+  - code: 2021M04
+    label: 2021M04
+  - code: 2021M05
+    label: 2021M05
+  - code: 2021M06
+    label: 2021M06
+  - code: 2021M07
+    label: 2021M07
+  - code: 2021M08
+    label: 2021M08
+  - code: 2021M09
+    label: 2021M09
+  - code: 2021M10
+    label: 2021M10
+  - code: 2021M11
+    label: 2021M11
+  - code: 2021M12
+    label: 2021M12
+  - code: 2022M01
+    label: 2022M01
+  - code: 2022M02
+    label: 2022M02
+  - code: 2022M03
+    label: 2022M03
+  - code: 2022M04
+    label: 2022M04
+  - code: 2022M05
+    label: 2022M05
+  - code: 2022M06
+    label: 2022M06
+  - code: 2022M07
+    label: 2022M07
+  - code: 2022M08
+    label: 2022M08
+  - code: 2022M09
+    label: 2022M09
+  - code: 2022M10
+    label: 2022M10
+  - code: 2022M11
+    label: 2022M11
+  - code: 2022M12
+    label: 2022M12
+  - code: 2023M01
+    label: 2023M01
+  - code: 2023M02
+    label: 2023M02
+  - code: 2023M03
+    label: 2023M03
+  - code: 2023M04
+    label: 2023M04
