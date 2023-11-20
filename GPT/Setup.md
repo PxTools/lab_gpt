@@ -53,9 +53,11 @@ When setting up the model, it is possible to add 'Actions'. An action consists o
 Ideally, it should be possible to utilize both version 0 and version 2 of the API for SSB's statistics database. The initial focus was on version 2. As of today, this version provides the best responses/results. Version 0 is still largely a work in progress.
 
 Sagger v2 to StatBank Norway:  
-[Swagger doc: ](https://github.com/PxTools/lab_gpt/blob/main/OpenApi/swagger.json)
+[Swagger doc, v2: ](https://github.com/PxTools/lab_gpt/blob/main/OpenApi/swagger_v2.json)
 
-We do not want the model to communicate with the database between the hours of 06:50 and 7:20. Therefore, a separate Swagger has been set up to retrieve the local time in Oslo:
+Sagger v0 to StatBank Norway:  
+[Swagger doc, v0: ](https://github.com/PxTools/lab_gpt/blob/main/OpenApi/swagger_v0.json)
+
 
 [Swagger TimeRestriction: ](https://github.com/PxTools/lab_gpt/blob/TestKnowledge/GPT/TimeRestrictions/time.json)
 
