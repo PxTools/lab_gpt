@@ -1,0 +1,25 @@
+Hey, can you find economic trends for housing prices?
+
+
+Let's take a closer look at Table 12880? I want 
+
+
+Can you find housing prices for 2023 to 2026?
+
+
+Can you create line graphs of this data? Use 0 as the origo?
+
+
+I now want you to find the price index for existing dwellings. Do you have data for this?
+
+
+Table 07230 fits my purpose. What kinds of parameters does this data have?
+
+
+Can you fetch data for the whole country, from 2015 to 2022, covering all types of buildings, and of course the Price Index?
+
+
+Great! Can you now merge this data with the forecast into one graph? I want the actual data to have a different color than the forecast, so I can see the difference.
+
+
+This graph looks nice. Can you add a new dotted line that connects 2022 and 2023?
