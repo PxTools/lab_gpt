@@ -4,7 +4,11 @@
 
 ## Icon
 
-![Disaplyimage for the GPT](https://github.com/PxTools/lab_gpt/blob/main/Images/SSB-Main-icon.png)
+![Disaplyimage for the GPT dark version](https://github.com/PxTools/lab_gpt/blob/main/Images/SSB-Main-icon.png)
+
+![Disaplyimage for the GPT white veropm](https://github.com/PxTools/lab_gpt/blob/main/Images/SSB%20white.png)
+
+
 
 ## Name
 
@@ -16,7 +20,13 @@ Retrives and analyze data from Statistisk sentrabyrå
 
 ## Instruction
 
-[GPTs Instructions: ](https://github.com/PxTools/lab_gpt/wiki/Instructions-%E2%80%90-GPTs)
+Version 2 of the API provides the best results. The instruction version you choose here must correctly match the version in the action.
+
+[GPTs Instructions for api v.0: ](https://github.com/PxTools/lab_gpt/wiki/Instructions-%E2%80%90-GPTs-for-api-v.2)
+
+[GPTs Instructions for api v.2: ](https://github.com/PxTools/lab_gpt/wiki/Instructions-%E2%80%90-GPTs-for-api-v.2)
+
+
 
 ## Conversation startes
 - Ta en titt på  tabell 12880
@@ -41,7 +51,9 @@ We are currently in the process of uploading all the metadata as knowledge. This
 
 When setting up the model, it is possible to add 'Actions'. An action consists of an OpenAPI Swagger. This Swagger enables the model to interpret the API and make use of it.
 
-Sagger to StatBank Norway:  
+Ideally, it should be possible to utilize both version 0 and version 2 of the API for SSB's statistics database. The initial focus was on version 2. As of today, this version provides the best responses/results. Version 0 is still largely a work in progress.
+
+Sagger v2 to StatBank Norway:  
 [Swagger doc: ](https://github.com/PxTools/lab_gpt/blob/main/OpenApi/swagger.json)
 
 We do not want the model to communicate with the database between the hours of 06:50 and 7:20. Therefore, a separate Swagger has been set up to retrieve the local time in Oslo:
