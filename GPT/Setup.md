@@ -15,13 +15,14 @@ SSB Assistent
 
 ## Description
 
-Retrives and analyze data from Statistisk sentrabyrå
+Retrives and analyze data from Statistisk sentrabyrå,
+or look [here](https://github.com/PxTools/lab_gpt/wiki/GPTs-%E2%80%90-Description)
 
 ## Instruction
 
 Version 2 of the API provides the best results. The instruction version you choose here must correctly match the version in the action.
 
-[GPTs Instructions for api v.0: ](https://github.com/PxTools/lab_gpt/wiki/Instructions-%E2%80%90-GPTs-for-api-v.2)
+[GPTs Instructions for api v.0: ](https://github.com/PxTools/lab_gpt/wiki/Instructions-%E2%80%90-GPTs-for-api-v.0)
 
 [GPTs Instructions for api v.2: ](https://github.com/PxTools/lab_gpt/wiki/Instructions-%E2%80%90-GPTs-for-api-v.2)
 
@@ -60,5 +61,5 @@ Sagger v0 to StatBank Norway:
 
 
 
-[Swagger TimeRestriction: ](https://github.com/PxTools/lab_gpt/blob/TestKnowledge/GPT/TimeRestrictions/time.json)
+[Swagger TimeRestriction: ](https://github.com/PxTools/lab_gpt/blob/main/OpenApi/swagger_time.json)
 
