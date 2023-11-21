@@ -9,6 +9,7 @@
   6. Insert the text and files from the setup file
 
 #### Demo
+Get two tables and merge them into one graph:
 <a href="https://www.youtube.com/watch?v=9PthFM0opCA" target="_blank">
     <img src="https://github.com/PxTools/lab_gpt/assets/59892221/1539c656-1f73-44c2-bd27-2e72030db731" alt="Link to demo on YouTube" width="222"/>
 </a>
