@@ -37,10 +37,31 @@ Hey, could you please find forecasts for economic trends for housing prices from
 
 
 
-Hey, could you please find economic trends for housing prices from 2023 to 2026 in terms of percentage change? You can find this information in table 12880.
+Hey, could you please find main economic indicators for housing prices from 2023 to 2026 in terms of percentage change? You can find this information in table 12880.
+
+
+Hey, could you please find main economic indicators for housing prices from 2023 to 2026 in terms of percentage change? 
+Next, I would like you to locate the price index data for existing dwellings. Do you have access to data for this?
+
+Table 07230 seems to be relevant for my needs. Could you retrieve data for the entire country, covering all types of buildings, from 2015 to 2022, including the Price Index?
+
+Excellent! Now, could you merge this data with the forecast into a single graph? I'd like the actual data to be represented in a different color than the forecast, so I can easily distinguish between them. I prefer a line graph and would like you to connect the years 2022 and 2023.
+
+
+
+
+
+funk:
+Hey, could you please find main economic indicators for housing prices from 2023 to 2026 in terms of percentage change? 
+
+Can you create a line graph for this data?
 
 Next, I would like you to locate the price index data for existing dwellings. Do you have access to data for this?
 
-Table 07230 seems to be relevant to my needs. Could you retrieve data for the entire country, covering all types of buildings, from 2015 to 2022, including the Price Index?
 
-Excellent! Now, could you merge this data with the forecast into a single graph? I'd like the actual data to be represented in a different color than the forecast, so I can easily distinguish between them. I prefer a line graph and would like you to connect the years 2022 and 2023.
+Table 07230 seems to be relevant for my needs. Could you retrieve data for the entire country, covering all types of buildings, from 2015 to 2022, including the Price Index?
+
+Can you create a line graph for this data?
+
+Now, could you merge this data with the forecast into a single graph? I'd like the actual data to be represented in a different color than the forecast, so I can easily distinguish between them. 
+I prefer a line graph and would like you to connect the years 2022 and 2023 in the graph. 
