@@ -8,6 +8,13 @@
   5. Go to configure
   6. Insert the text and files from the setup file
 
+#### Demo
+<video width="320" height="240" controls>
+  <source src="./Demo/gpt_demo.mp4" type="video/mp4">
+  Your browser does not support the video.
+</video>
+
+
 # Plugins
   To be continued
 
