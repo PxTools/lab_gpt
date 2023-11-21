@@ -1,4 +1,4 @@
-Hey, can you find economic trends for housing prices for 2023 to 2026, in %, you can find this in table 12880
+Hey, can you find economic trends for housing prices for 2023 to 2026, in percentage, you can find this in table 12880
 
 
 I now want you to find the price index for existing dwellings. Do you have data for this?
@@ -33,3 +33,14 @@ Great! Can you now merge this data with the forecast into one graph? I want the 
 
 
 
+Hey, could you please find forecasts for economic trends for housing prices from 2023 to 2026 in terms of percentage change? You can find this information in table 12880.
+
+
+
+Hey, could you please find economic trends for housing prices from 2023 to 2026 in terms of percentage change? You can find this information in table 12880.
+
+Next, I would like you to locate the price index data for existing dwellings. Do you have access to data for this?
+
+Table 07230 seems to be relevant to my needs. Could you retrieve data for the entire country, covering all types of buildings, from 2015 to 2022, including the Price Index?
+
+Excellent! Now, could you merge this data with the forecast into a single graph? I'd like the actual data to be represented in a different color than the forecast, so I can easily distinguish between them. I prefer a line graph and would like you to connect the years 2022 and 2023.
