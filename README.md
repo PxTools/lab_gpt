@@ -11,7 +11,7 @@
 #### Demo
 Get two tables and merge them into one graph: [link to mp4 file](https://github.com/PxTools/lab_gpt/blob/main/Demo/gpt_demo.mp4) 
 
-[![Alt text](URL-of-IMAGE)](https://www.youtube.com/watch?v=9PthFM0opCA)
+[![Link to demo on YouTube](https://github.com/PxTools/lab_gpt/blob/main/Images/transparent-youtube-logo.png)](https://www.youtube.com/watch?v=9PthFM0opCA)
 
 
 
