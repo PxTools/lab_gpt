@@ -10,6 +10,7 @@
 
 #### Demo
 Get two tables and merge them into one graph:
+
 Trykk under for å spille av videoen :) 
 
 <a href="https://www.youtube.com/watch?v=9PthFM0opCA" target="_blank">
