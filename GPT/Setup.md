@@ -32,6 +32,7 @@ Version 2 of the API provides the best results. The instruction version you choo
 - Ta en titt på  tabell 12880
 - What should I ask you?
 - Do you have any data on unemployment?
+- Hey, could you please find main economic indicators for housing prices from 2023 to 2026 in terms of percentage change? 
   
 ## Knowledge
 
