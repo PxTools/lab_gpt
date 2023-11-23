@@ -37,7 +37,7 @@ Version 2 of the API provides the best results. The instruction version you choo
 
 It is possible to upload the file to the model in advance. In this context, this is referred to as Knowledge. We have created a file that contains all table names and table labels from Statistics Norway's statistics bank (SSB) to enhance the model's vocabulary when it searches for tables. The idea is that this will help the model generate more relevant queries to the database.
 
-Upload the tablesVocabulary.txt file as knowledge 
+Upload the vocabulary_knowledge_No.txt and vocabulary_knowledge_En.txtfile as knowledge 
 [GPTs Knowledge: ](https://github.com/PxTools/lab_gpt/tree/main/Knowledge)
 
 We are currently in the process of uploading all the metadata as knowledge. This may result in a very large text file, so it's uncertain whether this will work.
