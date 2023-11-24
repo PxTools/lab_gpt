@@ -2,7 +2,7 @@
 
 **This is the instructions to how to setup a custom GPT for Statistics Norway. For more instructions see the readme file in root**
 
-## Icon
+## Icon  (The plus-sign inside the dotted circle triggers the upload dialog)
 
 [SSB logo, dark ](https://github.com/PxTools/lab_gpt/blob/main/Images/SSB-Main-icon.png)
 
