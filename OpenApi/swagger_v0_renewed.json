@@ -85,7 +85,6 @@
             "required": true,
             "schema": {
               "type": "string",
-              "pattern": "^[0-9]{5}$"
             },
              "example": "12880"
           }
@@ -127,7 +126,6 @@
               "type": "string",
               "pattern": "^[0-9]{5}$"
             },
-             "example": "12880"
           }
     ],
     "requestBody": {
