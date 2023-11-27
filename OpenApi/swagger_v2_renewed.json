@@ -55,7 +55,24 @@
             "schema": {
               "type": "string"
             },
-            "example": "Residential Property Price Index"
+                 "examples": {
+          "En1": {
+            "value": "Property Price",
+            "summary": "Short English"
+          },
+          "En2": {
+            "value": "Residential Property Price Index",
+            "summary": "Long English"
+          },
+            "N01": {
+            "value": "Boligpris ",
+            "summary": "Short Norwegian"
+          },
+          "No2": {
+            "value": "Bolig pris index eindom",
+            "summary": "Long Norwegia"
+          }
+        }
           },
           {
             "name": "pageSize",
