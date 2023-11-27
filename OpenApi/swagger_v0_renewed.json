@@ -84,7 +84,7 @@
             "description": "Unique identifier for each table. It consists of 5 numbers.",
             "required": true,
             "schema": {
-              "type": "string",
+              "type": "string"
             },
              "example": "12880"
           }
@@ -123,9 +123,8 @@
             "description": "Unique identifier for each table. It consists of 5 numbers.",
             "required": true,
             "schema": {
-              "type": "string",
-              "pattern": "^[0-9]{5}$"
-            },
+              "type": "string"
+            }
           }
     ],
     "requestBody": {
