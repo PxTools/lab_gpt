@@ -14,7 +14,7 @@
     "/api/v0/{lang}/table": {
       "get": {
         "summary": "Finds table tableIds based on a search query",
-        "description": "Lists all tables with ID, but without statistics. Use this request to find relevant tables. If the user speaks another language than Norwegian, translate their request into English. Query formatting '(Residential AND Property) OR (Price AND Index)', remember to use ()",
+        "description": "Step 1 request: Lists all tables with ID, but without statistics. Use this request to find relevant tables. If the user speaks another language than Norwegian, translate their request into English. Query formatting '(Residential AND Property) OR (Price AND Index)', remember to use ()",
         "operationId": "getTables",
         "parameters": [
           {
@@ -58,8 +58,8 @@
           "Table"
         ],
         "summary": "Get valid variables and values for 'GetTableDataByPost', from a tabel with id: {id}.",
-        "description": "Used for listing all valid variables and values about a specific table. These variables and values are needed to generate a valid request to 'GetTableDataByPost' ",
-        "operationId": "GetValidVariables&ValuesById",
+        "description": "Step 2 request: Used for listing all valid variables and values about a specific table. These variables and values are needed to generate a valid request to 'GetTableDataByPost' ",
+        "operationId": "GetValidVariablesAndValuesById",
         "parameters": [
           {
             "name": "lang",
@@ -81,7 +81,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "Unique identifier for each table. It consists of 5 numbers. ",
+            "description": "Unique identifier for each table. It consists of 5 numbers.",
             "required": true,
             "schema": {
               "type": "string",
@@ -98,7 +98,7 @@
           "Table"
         ],
     "summary": "Get data from table by {id}.",
-    "description": "",
+    "description": "Step 3 request. Always query the 'getTables' first, then query 'GetValidVariablesAndValuesById', and at last query this request with the valid variabl and values. ",
     "operationId": "GetTableDataByPost",
     "parameters": [
           {
@@ -121,7 +121,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "Unique identifier for each table. It consists of 5 numbers",
+            "description": "Unique identifier for each table. It consists of 5 numbers.",
             "required": true,
             "schema": {
               "type": "string",
@@ -131,7 +131,7 @@
           }
     ],
     "requestBody": {
-     "description": "Request body for selecting specific data from a table. Each selection object corresponds to a variable in the table, specifying filter criteria. Always fetch all valid variables and values from 'GetValidVariables&ValuesById', and use minimum one value for each variables ",
+     "description": "Request body for selecting specific data from a table. Each selection object corresponds to a variable in the table, specifying filter criteria. Always fetch all valid variables and values from 'GetValidVariablesAndValuesById', and use minimum one value for each variables ",
       "required": true,
       "content": {
         "application/json": {
