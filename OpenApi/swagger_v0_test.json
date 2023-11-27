@@ -14,7 +14,7 @@
     "/api/v0/{lang}/table": {
       "get": {
         "summary": "Finds table tableIds based on a search query",
-        "description": "Lists all tables with with ID, but without statistics. Use this request to find relevant tables.  If the user speaks another language than Norwegian, translate their request into English. Query formatting '(Residential AND Property) OR (Price AND Index)', remeber to use () ",
+        "description": "Lists all tables with ID, but without statistics. Use this request to find relevant tables. If the user speaks another language than Norwegian, translate their request into English. Query formatting '(Residential AND Property) OR (Price AND Index)', remember to use ()",
         "operationId": "getTables",
         "parameters": [
           {
@@ -58,8 +58,8 @@
           "Table"
         ],
         "summary": "Get valid variables and values for 'GetTableDataByPost', from a tabel with id: {id}.",
-        "description": "Used for listing all valid variables and values about a specific table. Theese variables and values are needed to generate a valid request to 'GetTableDataByPost' ",
-        "operationId": "GetMetadataById",
+        "description": "Used for listing all valid variables and values about a specific table. These variables and values are needed to generate a valid request to 'GetTableDataByPost' ",
+        "operationId": "GetValidVariables&ValuesById",
         "parameters": [
           {
             "name": "lang",
@@ -81,13 +81,13 @@
           {
             "name": "id",
             "in": "path",
-            "description": "Uniqe identifier for each table. It consist of 5 numbers.",
+            "description": "Unique identifier for each table. It consists of 5 numbers. ",
             "required": true,
             "schema": {
               "type": "string",
               "pattern": "^[0-9]{5}$"
             },
-             "example": "12345"
+             "example": "12880"
           }
         ]
       }
@@ -98,33 +98,40 @@
           "Table"
         ],
     "summary": "Get data from table by {id}.",
+    "description": "",
     "operationId": "GetTableDataByPost",
     "parameters": [
-      {
+          {
             "name": "lang",
             "in": "path",
-            "description": "Two letter language code (ISO 639), 'en' for english and 'no' for norwegian",
+            "description": "Two letter language code (ISO 639). If an unsupported language code is provided, the default language (English) will be used.",
             "required": true,
             "deprecated": false,
             "allowEmptyValue": false,
             "explode": false,
             "allowReserved": false,
             "schema": {
-              "type": "string"
-            }
-      },
-      {
-        "name": "id",
-        "in": "path",
-        "description": "Unique identifier for each table. It consists of 5 numbers.",
-        "required": true,
-        "schema": {
-          "type": "string"
-        }
-      }
+              "type": "string",
+              "enum": ["en", "no"],
+              "minLength": 2,
+              "maxLength": 2
+            },
+            "example": "en"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Unique identifier for each table. It consists of 5 numbers",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9]{5}$"
+            },
+             "example": "12880"
+          }
     ],
     "requestBody": {
-      "description": "Request body for data selection",
+     "description": "Request body for selecting specific data from a table. Each selection object corresponds to a variable in the table, specifying filter criteria. Always fetch all valid variables and values from 'GetValidVariables&ValuesById', and use minimum one value for each variables ",
       "required": true,
       "content": {
         "application/json": {
@@ -139,7 +146,7 @@
                     "properties": {
 					              "code": {
                            "type": "string",
-                           "description": "The code of the variable."
+                           "description": "The code of the variable to be queried (e.g., 'Kjonn', 'Alder')."
                         },
                         "selection": {
                             "type": "object",
@@ -148,12 +155,12 @@
                                  "filter": {
                                     "type": "string",
                                     "enum": ["item"],
-                                    "description": "This field should allway be 'item'."
+                                     "description": "Type of filter applied to the selection. Currently, only 'item' is supported."
                                  },
                                  "values": {
                                     "type": "array",
                                     "minItems": 1,
-                                    "description": "An array of value codes to be included in the selection.",
+                                    "description": "An array of selected values for the variable. Values depend on the variable's code.",
                                     "items": {
                                         "type": "string",
                                         "description": "A specific code value within the variable's code list."
