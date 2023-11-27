@@ -32,7 +32,16 @@
               "minLength": 2,
               "maxLength": 2
             },
-            "example": "en"
+                "examples": {
+          "X1": {
+            "value": "en",
+            "summary": "For English"
+          },
+          "X2": {
+            "value": "no",
+            "summary": "For Norwegian"
+          }
+        }
           },
           {
             "name": "query",
@@ -91,7 +100,16 @@
               "minLength": 2,
               "maxLength": 2
             },
-            "example": "en"
+                  "examples": {
+          "X1": {
+            "value": "en",
+            "summary": "For English"
+          },
+          "X2": {
+            "value": "no",
+            "summary": "For Norwegian"
+          }
+        }
           },
           {
             "name": "id",
