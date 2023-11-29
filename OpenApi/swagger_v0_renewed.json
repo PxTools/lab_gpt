@@ -3,11 +3,11 @@
   "info": {
     "title": "PxWeb",
     "description": "Official statistical data from Norway",
-    "version": "v0.0.1"
+    "version": "1.0.0"
   },
   "servers": [
     {
-      "url": "https://data.qa.ssb.no"
+      "url": "https://data.ssb.no"
     }
   ],
   "paths": {
@@ -22,26 +22,26 @@
             "in": "path",
             "description": "Two letter language code (ISO 639). If an unsupported language code is provided, the default language (English) will be used.",
             "required": true,
-            "deprecated": false,
             "allowEmptyValue": false,
-            "explode": false,
-            "allowReserved": false,
             "schema": {
               "type": "string",
-              "enum": ["en", "no"],
+              "enum": [
+                "en",
+                "no"
+              ],
               "minLength": 2,
               "maxLength": 2
             },
-                  "examples": {
-          "X1": {
-            "value": "en",
-            "summary": "For English"
-          },
-          "X2": {
-            "value": "no",
-            "summary": "For Norwegian"
-          }
-        }
+            "examples": {
+              "X1": {
+                "value": "en",
+                "summary": "For english"
+              },
+              "X2": {
+                "value": "no",
+                "summary": "For norwegian"
+              }
+            }
           },
           {
             "name": "query",
@@ -50,15 +50,21 @@
             "required": true,
             "deprecated": false,
             "allowEmptyValue": false,
-            "explode": false,
-            "allowReserved": false,
             "schema": {
               "type": "string"
             },
-            "example": "(Residential AND Property) OR (Price AND Index)"
+            "examples": {
+              "X1": {
+                "value": "(Residential AND Property) OR (Price AND Index)",
+                "summary": "Combines the searches 'Residential Property' and 'Price Index'"
+              },
+              "X2": {
+                "value": "(Økonomisk AND vekst)",
+                "summary": "Search for 'Økonomisk vekst'"
+              }
+            }
           }
-        ],
-        "deprecated": false
+        ]
       }
     },
     "/api/v0/{lang}/table/{id}": {
@@ -67,7 +73,7 @@
           "Table"
         ],
         "summary": "Get valid variables and values for 'GetTableDataByPost', from a tabel with id: {id}.",
-        "description": "Step 2 request: Used for listing all valid variables and values about a specific table. These variables and values are needed to generate a valid request to 'GetTableDataByPost' ",
+        "description": "Step 2 request: Used for listing all valid variables and values about a specific table. These variables and values are needed to generate a valid request to 'GetTableDataByPost', and must be used to match the users request when generating a valid requestBody in 'GetTableDataByPost'.",
         "operationId": "GetValidVariablesAndValuesById",
         "parameters": [
           {
@@ -75,151 +81,233 @@
             "in": "path",
             "description": "Two letter language code (ISO 639). If an unsupported language code is provided, the default language (English) will be used.",
             "required": true,
-            "deprecated": false,
             "allowEmptyValue": false,
-            "explode": false,
-            "allowReserved": false,
             "schema": {
               "type": "string",
-              "enum": ["en", "no"],
+              "enum": [
+                "en",
+                "no"
+              ],
               "minLength": 2,
               "maxLength": 2
             },
-                  "examples": {
-          "X1": {
-            "value": "en",
-            "summary": "For English"
-          },
-          "X2": {
-            "value": "no",
-            "summary": "For Norwegian"
-          }
-        }
+            "examples": {
+              "X1": {
+                "value": "en",
+                "summary": "For english"
+              },
+              "X2": {
+                "value": "no",
+                "summary": "For norwegian"
+              }
+            }
           },
           {
             "name": "id",
             "in": "path",
-            "description": "Unique identifier for each table. It consists of 5 numbers.",
+            "description": "Unique identifier for each table",
             "required": true,
+            "allowEmptyValue": false,
             "schema": {
               "type": "string"
             },
-             "example": "12880"
+            "examples": {
+              "X1": {
+                "value": "12880",
+                "description": "ID as a numbered string"
+              },
+              "X2": {
+                "value": "Datakonsul3",
+                "description": "ID as a pure string value"
+              }
+            }
           }
-        ]
-      }
-    ,
-
-    "post": {
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "title",
+                    "variables"
+                  ],
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "description": "Title of the table"
+                    },
+                    "variables": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "code",
+                          "text",
+                          "values",
+                          "valueTexts"
+                        ],
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Variable code available in table metadata"
+                          },
+                          "text": {
+                            "type": "string",
+                            "description": "Variable code as text to display to user"
+                          },
+                          "values": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "description": "Variable value code used to access the variable value in operation 'GetTableDataByPost'"
+                            }
+                          },
+                          "valueTexts": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "description": "Variable value code as text to display to user"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
         "tags": [
           "Table"
         ],
-    "summary": "Get data from table by {id}.",
-    "description": "Step 3 request. Always query the 'getTables' first, then query 'GetValidVariablesAndValuesById', and at last query this request with the valid variabl and values. ",
-    "operationId": "GetTableDataByPost",
-    "parameters": [
+        "summary": "Get data from table by {id}.",
+        "description": "Step 3 request: Fetches data from specific table. Response from 'GetValidVariablesAndValuesById' for respective table_id must have been called beforehand to create a valid request with valid variables and values.",
+        "operationId": "GetTableDataByPost",
+        "parameters": [
           {
             "name": "lang",
             "in": "path",
             "description": "Two letter language code (ISO 639). If an unsupported language code is provided, the default language (English) will be used.",
             "required": true,
-            "deprecated": false,
             "allowEmptyValue": false,
-            "explode": false,
-            "allowReserved": false,
             "schema": {
               "type": "string",
-              "enum": ["en", "no"],
+              "enum": [
+                "en",
+                "no"
+              ],
               "minLength": 2,
               "maxLength": 2
             },
-                  "examples": {
-          "X1": {
-            "value": "en",
-            "summary": "For English"
-          },
-          "X2": {
-            "value": "no",
-            "summary": "For Norwegian"
-          }
-        }
+            "examples": {
+              "X1": {
+                "value": "en",
+                "summary": "For english"
+              },
+              "X2": {
+                "value": "no",
+                "summary": "For norwegian"
+              }
+            }
           },
           {
             "name": "id",
             "in": "path",
-            "description": "Unique identifier for each table. It consists of 5 numbers.",
+            "description": "Unique identifier for each table",
             "required": true,
+            "allowEmptyValue": false,
             "schema": {
               "type": "string"
+            },
+            "examples": {
+              "X1": {
+                "value": "12880",
+                "description": "ID as a numbered string"
+              },
+              "X2": {
+                "value": "Datakonsul3",
+                "description": "ID as a pure string value"
+              }
             }
           }
-    ],
-    "requestBody": {
-     "description": "Request body for selecting specific data from a table. Each selection object corresponds to a variable in the table, specifying filter criteria. Always fetch all valid variables and values from 'GetValidVariablesAndValuesById', and use minimum one value for each variables ",
-      "required": true,
-      "content": {
-        "application/json": {
-          "schema": {
-            "type": "object",
-            "properties": {
-			         "query": {
-			           "type": "array",
-                 "description": "An array of holding selection criteria for each variable.",
-                 "items": {
-			              "type": "object",
-                    "properties": {
-					              "code": {
-                           "type": "string",
-                           "description": "The code of the variable to be queried (e.g., 'Kjonn', 'Alder')."
+        ],
+        "requestBody": {
+          "description": "Request body for selecting specific data from a table. Each selection object corresponds to a variable in the table, specifying filter criteria. Variables and values must have been fetched from beforehand from 'GetValidVariablesAndValuesById' and must be used to match the users request",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "array",
+                    "description": "An array of holding selection criteria for each variable.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "The code of the variable to be queried (e.g., 'Kjonn', 'Alder')."
                         },
                         "selection": {
-                            "type": "object",
-                            "description": "Details of an individual selection criterion.",
-                            "properties": {
-                                 "filter": {
-                                    "type": "string",
-                                    "enum": ["item"],
-                                     "description": "Type of filter applied to the selection. Currently, only 'item' is supported."
-                                 },
-                                 "values": {
-                                    "type": "array",
-                                    "minItems": 1,
-                                    "description": "An array of selected values for the variable. Values depend on the variable's code.",
-                                    "items": {
-                                        "type": "string",
-                                        "description": "A specific code value within the variable's code list."
-                                    }
-                                 }
-							              }
-						            }
-                    },
-                    "required": ["code", "selection"]
-                   }
-               },
-               "response": {
-                   "type": "object",
-                   "description": "Details of an response",
-                   "properties": {
-                       "format": {
-                          "type": "string",
-                          "description": "Format of the response. Options are 'px'."
+                          "type": "object",
+                          "description": "Details of an individual selection criterion.",
+                          "properties": {
+                            "filter": {
+                              "type": "string",
+                              "enum": [
+                                "item",
+                                "all",
+                                "top"
+                              ],
+                              "description": "Type of filter applied to the selection. '(item)' is the default and provides values for each variable in a list. '(all)' enables effectice value selection. Just '*' gives all values. '2019*' gives all values starting with 2019. '*M12' in a monthly table gives all Decembers for each year. '(top)' selects a number of the newest or first values. If '60' is used, the last 60 values is fetched."
+                            },
+                            "values": {
+                              "type": "array",
+                              "minItems": 1,
+                              "description": "An array of selected values for the variable. Values depend on the variable's code which must match with response from operation 'GetValidVariablesAndValuesById'",
+                              "items": {
+                                "type": "string",
+                                "description": "A specific code value within the variable's code list."
+                              }
+                            }
+                          }
                         }
-                   }
-               }
+                      },
+                      "required": [
+                        "code",
+                        "selection"
+                      ]
+                    }
+                  },
+                  "response": {
+                    "type": "object",
+                    "description": "Details of an response",
+                    "properties": {
+                      "format": {
+                        "type": "string",
+                        "enum": [
+                          "json-stat2",
+                          "json-stat",
+                          "csv2",
+                          "csv3"
+                        ],
+                        "description": "Format of the response."
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
-
-
         }
       }
-    },
-    "responses": {
-
     }
-  }
-    }
-  },
-  "components": {
-    "schemas": {}
   }
 }
