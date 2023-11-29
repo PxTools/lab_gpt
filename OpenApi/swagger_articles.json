@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "PxWeb",
-    "description": "Official statistical data from Norway",
-    "version": "v1.0"
+    "description": "Official articles from SSB",
+    "version": "v0.0.1"
   },
   "servers": [
     {
@@ -16,14 +16,14 @@
                 "tags": [
           "Articles"
         ],
-      "summary": "Finds articles based on a search query",
-        "description": "Finds articles based on a search query",
+      "summary": "Finds articles based on a fuzzy search query",
+        "description": "Finds articles based on a search query. GPT:  When you get the response, include all values to the end user in the prompt",
         "operationId": "gptArticles",
         "parameters": [
           {
             "name": "query",
-            "in": "path",
-            "description": "Perform a free-text search for tables using an OR search logic. This search accepts multiple keywords and synonyms. For improved results, include both synonyms and the original search terms in the query parameters.",
+            "in": "query",
+            "description": "Perform a free-text fuzzy search for tables using an OR search logic. This search accepts multiple keywords and synonyms. For improved results, include both synonyms and the original search terms in the query parameters. ",
             "required": true,
             "deprecated": false,
             "allowEmptyValue": false,
@@ -47,14 +47,14 @@
           },
           "No2": {
             "value": "Bolig pris index eindom",
-            "summary": "Long Norwegian"
+            "summary": "Long Norwegia"
           }
         }
           },
           {
             "name": "count",
             "in": "query",
-            "description": "The number of articles returned per page. This parameter is used for pagination. Ensure the pageSize is not too large to avoid a 'ResponseTooLargeError'.",
+            "description": "The number of articles returned per requesr. This parameter is used for pagination. Ensure the pageSize is not too large to avoid a 'ResponseTooLargeError'.",
             "required": true,
             "deprecated": false,
             "allowEmptyValue": false,
@@ -62,13 +62,13 @@
             "allowReserved": false,
             "schema": {
               "type": "integer",
-              "minimum": 0,
-              "maximum": 10
+              "minimum": 3,
+              "maximum": 15
             }
           },
                     {
             "name": "start",
-            "in": "path",
+            "in": "query",
             "description": "paginating ",
             "required": true,
             "deprecated": false,
@@ -96,7 +96,7 @@
         "parameters": [
           {
             "name": "query",
-            "in": "path",
+            "in": "query",
             "description": "Unique identifier for each table. It consists of 4 numbers.",
             "required": true,
             "schema": {
