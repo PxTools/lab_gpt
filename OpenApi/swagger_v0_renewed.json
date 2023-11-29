@@ -46,7 +46,7 @@
           {
             "name": "query",
             "in": "query",
-            "description": "Perform a free-text search for tables using an AND/OR search logic. This search accepts multiple keywords and synonyms. For improved results, include both synonyms and the original search terms in the query parameters.",
+            "description": "This query parameter performs database searches using a specific syntax for combining terms with AND/OR logic. To search for phrases, use AND between words (e.g., 'price AND index'). Use OR to combine different phrase searches. For example, to search for 'price index' and 'price indicators', format as '(price AND index) OR (price AND indicators)'. Include variations of your main query for comprehensive results.",
             "required": true,
             "deprecated": false,
             "allowEmptyValue": false,
