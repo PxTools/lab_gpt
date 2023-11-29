@@ -92,6 +92,7 @@
         ],
         "summary": "  Finds statistics based on a query ",
         "description": "Finds statistics based on a query ",
+        "operationId": "gptStatistics",
         "parameters": [
           {
             "name": "query",
