@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "PxWeb",
-    "description": "Official articles from SSB",
-    "version": "v1.0"
+    "description": "Official statistical data from Norway",
+    "version": "v0.0.1"
   },
   "servers": [
     {
@@ -54,7 +54,7 @@
           {
             "name": "count",
             "in": "query",
-            "description": "The number of articles returned per page. This parameter is used for pagination. Ensure the pageSize is not too large to avoid a 'ResponseTooLargeError'.",
+            "description": "The number of articles returned per page. This parameter is used for pagination, with approximately 8000 tables available in total. Ensure the pageSize is not too large to avoid a 'ResponseTooLargeError'.",
             "required": true,
             "deprecated": false,
             "allowEmptyValue": false,
@@ -62,7 +62,7 @@
             "allowReserved": false,
             "schema": {
               "type": "integer",
-              "minimum": 3,
+              "minimum": 0,
               "maximum": 15
             }
           },
@@ -88,7 +88,7 @@
     "/gptStatistics": {
       "get": {
         "tags": [
-          "ArticlesStatistics"
+          "Statistics"
         ],
         "summary": "  Finds statistics based on a query ",
         "description": "Finds statistics based on a query ",
