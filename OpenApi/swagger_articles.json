@@ -1,1 +1,115 @@
-
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PxWeb",
+    "description": "Official statistical data from Norway",
+    "version": "v0.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://www.qa.ssb.no/_/service/mimir"
+    }
+  ],
+  "paths": {
+    "/gptArticles": {
+      "get": {
+                "tags": [
+          "Articles"
+        ],
+      "summary": "Finds articles based on a search query",
+        "description": "Finds articles based on a search query",
+        "operationId": "gptArticles",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "path",
+            "description": "Perform a free-text search for tables using an OR search logic. This search accepts multiple keywords and synonyms. For improved results, include both synonyms and the original search terms in the query parameters.",
+            "required": true,
+            "deprecated": false,
+            "allowEmptyValue": false,
+            "explode": false,
+            "allowReserved": false,
+            "schema": {
+              "type": "string"
+            },
+                 "examples": {
+          "En1": {
+            "value": "Property Price",
+            "summary": "Short English"
+          },
+          "En2": {
+            "value": "Residential Property Price Index",
+            "summary": "Long English"
+          },
+            "N01": {
+            "value": "Boligpris ",
+            "summary": "Short Norwegian"
+          },
+          "No2": {
+            "value": "Bolig pris index eindom",
+            "summary": "Long Norwegia"
+          }
+        }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "The number of articles returned per page. This parameter is used for pagination, with approximately 8000 tables available in total. Ensure the pageSize is not too large to avoid a 'ResponseTooLargeError'.",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": false,
+            "explode": false,
+            "allowReserved": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 15
+            }
+          },
+                    {
+            "name": "start",
+            "in": "path",
+            "description": "paginating ",
+            "required": true,
+            "deprecated": false,
+            "allowEmptyValue": false,
+            "explode": false,
+            "allowReserved": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 30
+            }
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/gptStatistics": {
+      "get": {
+        "tags": [
+          "Statistics"
+        ],
+        "summary": "  Finds statistics based on a query ",
+        "description": "Finds statistics based on a query ",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "path",
+            "description": "Unique identifier for each table. It consists of 4 numbers.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+             "example": "4359"
+          }
+        ]
+      }
+    }
+    
+   
+  },
+  "components": {
+    "schemas": {}
+  }
+}
