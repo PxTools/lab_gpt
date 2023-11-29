@@ -3,7 +3,7 @@
   "info": {
     "title": "PxWeb",
     "description": "Official statistical data from Norway",
-    "version": "v0.0.1"
+    "version": "v1.0"
   },
   "servers": [
     {
@@ -47,14 +47,14 @@
           },
           "No2": {
             "value": "Bolig pris index eindom",
-            "summary": "Long Norwegia"
+            "summary": "Long Norwegian"
           }
         }
           },
           {
             "name": "count",
             "in": "query",
-            "description": "The number of articles returned per page. This parameter is used for pagination, with approximately 8000 tables available in total. Ensure the pageSize is not too large to avoid a 'ResponseTooLargeError'.",
+            "description": "The number of articles returned per page. This parameter is used for pagination. Ensure the pageSize is not too large to avoid a 'ResponseTooLargeError'.",
             "required": true,
             "deprecated": false,
             "allowEmptyValue": false,
@@ -63,7 +63,7 @@
             "schema": {
               "type": "integer",
               "minimum": 0,
-              "maximum": 15
+              "maximum": 10
             }
           },
                     {
@@ -88,7 +88,7 @@
     "/gptStatistics": {
       "get": {
         "tags": [
-          "Statistics"
+          "ArticlesStatistics"
         ],
         "summary": "  Finds statistics based on a query ",
         "description": "Finds statistics based on a query ",
