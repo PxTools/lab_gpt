@@ -3,9 +3,9 @@
 # GPTs
   1. Open the [Setup](https://github.com/PxTools/lab_gpt/blob/main/GPT/Setup.md) file
   2. Go to chat.openai.com
-  3. Find the explore menu element
-  4. Select "create a GPT"
-  5. Go to configure
+  3. Find the "Explore" menu element
+  4. Select "Create a GPT"
+  5. There are 2 panes "Create" and "Configure". Go to Configure
   6. Insert the text and files from the setup file
 
 #### Demo
