@@ -17,13 +17,13 @@
           "Articles"
         ],
       "summary": "Finds articles based on a search query",
-        "description": "Finds articles based on a search query",
+        "description": "Finds articles based on a search query",  
         "operationId": "gptArticles",
         "parameters": [
           {
             "name": "query",
             "in": "query",
-            "description": "Perform a free-text search for tables using an OR search logic. This search accepts multiple keywords and synonyms",
+            "description": "Perform a free-text search for tables using an AND search logic. This search accepts multiple keywords and synonyms",
             "required": true,
             "deprecated": false,
             "allowEmptyValue": false,
@@ -35,19 +35,19 @@
                  "examples": {
           "En1": {
             "value": "Property Price",
-            "summary": "Short English"
+            "summary": "Short English, the database interprets this as 'Property AND Price'"
           },
           "En2": {
             "value": "Residential Property Price Index",
-            "summary": "Long English"
+            "summary": "Long English, the database interprets this as 'Residential AND Property AND Price AND Index' "
           },
             "N01": {
             "value": "Boligpris ",
-            "summary": "Short Norwegian"
+            "summary": "Short Norwegian, the database interprets this as 'Boligpris'"
           },
           "No2": {
             "value": "Bolig pris index eindom",
-            "summary": "Long Norwegia"
+            "summary": "Long Norwegian, the database interprets this as 'Bolig AND pris AND index AND eindom'"
           }
         }
           },
