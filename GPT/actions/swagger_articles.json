@@ -13,10 +13,10 @@
   "paths": {
     "/gptArticles": {
       "get": {
-                "tags": [
+        "tags": [
           "Articles"
         ],
-      "summary": "Finds articles based on a fuzzy search query",
+        "summary": "Finds articles based on a fuzzy search query",
         "description": "Finds articles based on a search query. GPT:  When you get the response, include all values to the end user in the prompt",
         "operationId": "gptArticles",
         "parameters": [
@@ -32,24 +32,24 @@
             "schema": {
               "type": "string"
             },
-                 "examples": {
-          "En1": {
-            "value": "Property Price",
-            "summary": "Short English"
-          },
-          "En2": {
-            "value": "Residential Property Price Index",
-            "summary": "Long English"
-          },
-            "N01": {
-            "value": "Boligpris ",
-            "summary": "Short Norwegian"
-          },
-          "No2": {
-            "value": "Bolig pris index eindom",
-            "summary": "Long Norwegia"
-          }
-        }
+            "examples": {
+              "En1": {
+                "value": "Property Price",
+                "summary": "Short English"
+              },
+              "En2": {
+                "value": "Residential Property Price Index",
+                "summary": "Long English"
+              },
+              "N01": {
+                "value": "Boligpris ",
+                "summary": "Short Norwegian"
+              },
+              "No2": {
+                "value": "Bolig pris index eindom",
+                "summary": "Long Norwegia"
+              }
+            }
           },
           {
             "name": "count",
@@ -66,7 +66,7 @@
               "maximum": 15
             }
           },
-                    {
+          {
             "name": "start",
             "in": "query",
             "description": "paginating ",
@@ -102,13 +102,11 @@
             "schema": {
               "type": "string"
             },
-             "example": "4359"
+            "example": "4359"
           }
         ]
       }
     }
-    
-   
   },
   "components": {
     "schemas": {}

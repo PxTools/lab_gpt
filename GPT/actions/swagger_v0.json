@@ -20,7 +20,7 @@
           {
             "name": "lang",
             "in": "path",
-            "description": "Two letter language code (ISO 639). If an unsupported language code is provided, the default language (English) will be used.",
+            "description": "Two letter language code (ISO 639). If the user writes in Norwegian, language code 'no' MUST be used. Else use the default language code 'en' will be used.",
             "required": true,
             "allowEmptyValue": false,
             "schema": {
@@ -79,7 +79,7 @@
           {
             "name": "lang",
             "in": "path",
-            "description": "Two letter language code (ISO 639). If an unsupported language code is provided, the default language (English) will be used.",
+            "description": "Two letter language code (ISO 639). If the user writes in Norwegian, language code 'no' MUST be used. Else use the default language code 'en' will be used.",
             "required": true,
             "allowEmptyValue": false,
             "schema": {
@@ -193,7 +193,7 @@
           {
             "name": "lang",
             "in": "path",
-            "description": "Two letter language code (ISO 639). If an unsupported language code is provided, the default language (English) will be used.",
+            "description": "Two letter language code (ISO 639). If the user writes in Norwegian, language code 'no' MUST be used. Else use the default language code 'en' will be used.",
             "required": true,
             "allowEmptyValue": false,
             "schema": {

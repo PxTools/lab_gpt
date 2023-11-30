@@ -78,17 +78,15 @@
             }
           }
         ]
-      }
-    ,
-
-    "post": {
+      },
+      "post": {
         "tags": [
           "Table"
         ],
-    "summary": "Get data from table by {id}.",
-    "operationId": "GetTableDataByPost",
-    "parameters": [
-      {
+        "summary": "Get data from table by {id}.",
+        "operationId": "GetTableDataByPost",
+        "parameters": [
+          {
             "name": "lang",
             "in": "path",
             "description": "Two letter language code (ISO 639), 'en' for english and 'no' for norwegian",
@@ -100,16 +98,16 @@
             "schema": {
               "type": "string"
             }
-      },
-      {
-        "name": "id",
-        "in": "path",
-        "description": "Unique identifier for each table. It consists of 5 numbers.",
-        "required": true,
-        "schema": {
-          "type": "string"
-        }
-      },
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Unique identifier for each table. It consists of 5 numbers.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "in": "query",
             "name": "outputFormat",
@@ -119,68 +117,67 @@
               "type": "string"
             }
           }
-    ],
-    "requestBody": {
-      "description": "Request body for data selection",
-      "required": true,
-      "content": {
-        "application/json": {
-          "schema": {
-            "type": "object",
-            "properties": {
-			         "query": {
-			           "type": "array",
-                 "description": "An array of holding selection criteria for each variable.",
-                 "items": {
-			              "type": "object",
-                    "properties": {
-					              "code": {
-                           "type": "string",
-                           "description": "The code of the variable."
+        ],
+        "requestBody": {
+          "description": "Request body for data selection",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "array",
+                    "description": "An array of holding selection criteria for each variable.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "The code of the variable."
                         },
                         "selection": {
-                            "type": "object",
-                            "description": "Details of an individual selection criterion.",
-                            "properties": {
-                                 "filter": {
-                                    "type": "string",
-                                    "description": "Should allway be 'item'."
-                                 },
-                                 "values": {
-                                    "type": "array",
-                                    "description": "An array of value codes to be included in the selection.",
-                                    "items": {
-                                        "type": "string",
-                                        "description": "A specific code value within the variable's code list."
-                                    }
-                                 }
-							              }
-						            }
-                    },
-                    "required": ["code", "selection"]
-                   }
-               },
-               "response": {
-                   "type": "object",
-                   "description": "Details of an response",
-                   "properties": {
-                       "response": {
-                          "type": "string",
-                          "description": "Should allway be 'px'."
+                          "type": "object",
+                          "description": "Details of an individual selection criterion.",
+                          "properties": {
+                            "filter": {
+                              "type": "string",
+                              "description": "Should allway be 'item'."
+                            },
+                            "values": {
+                              "type": "array",
+                              "description": "An array of value codes to be included in the selection.",
+                              "items": {
+                                "type": "string",
+                                "description": "A specific code value within the variable's code list."
+                              }
+                            }
+                          }
                         }
-                   }
-               }
+                      },
+                      "required": [
+                        "code",
+                        "selection"
+                      ]
+                    }
+                  },
+                  "response": {
+                    "type": "object",
+                    "description": "Details of an response",
+                    "properties": {
+                      "response": {
+                        "type": "string",
+                        "description": "Should allway be 'px'."
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
-
-
-        }
+        },
+        "responses": {}
       }
-    },
-    "responses": {
-
-    }
-  }
     }
   },
   "components": {
