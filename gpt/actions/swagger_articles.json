@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "PxWeb",
-    "description": "Official articles from SSB",
+    "description": "Official statistical data from Norway",
     "version": "v0.0.1"
   },
   "servers": [
@@ -23,7 +23,7 @@
           {
             "name": "query",
             "in": "query",
-            "description": "Perform a free-text fuzzy search for tables using an OR search logic. This search accepts multiple keywords and synonyms. For improved results, include both synonyms and the original search terms in the query parameters. ",
+            "description": "Perform a free-text search for tables using an AND search logic. This search accepts multiple keywords and synonyms",
             "required": true,
             "deprecated": false,
             "allowEmptyValue": false,
@@ -35,26 +35,26 @@
             "examples": {
               "En1": {
                 "value": "Property Price",
-                "summary": "Short English"
+                "summary": "Short English, the database interprets this as 'Property AND Price'"
               },
               "En2": {
                 "value": "Residential Property Price Index",
-                "summary": "Long English"
+                "summary": "Long English, the database interprets this as 'Residential AND Property AND Price AND Index' "
               },
               "N01": {
                 "value": "Boligpris ",
-                "summary": "Short Norwegian"
+                "summary": "Short Norwegian, the database interprets this as 'Boligpris'"
               },
               "No2": {
                 "value": "Bolig pris index eindom",
-                "summary": "Long Norwegia"
+                "summary": "Long Norwegian, the database interprets this as 'Bolig AND pris AND index AND eindom'"
               }
             }
           },
           {
             "name": "count",
             "in": "query",
-            "description": "The number of articles returned per requesr. This parameter is used for pagination. Ensure the pageSize is not too large to avoid a 'ResponseTooLargeError'.",
+            "description": "The number of articles returned per page. This parameter is used for pagination. Ensure the pageSize is not too large to avoid a 'ResponseTooLargeError'.",
             "required": true,
             "deprecated": false,
             "allowEmptyValue": false,
@@ -62,7 +62,7 @@
             "allowReserved": false,
             "schema": {
               "type": "integer",
-              "minimum": 3,
+              "minimum": 0,
               "maximum": 15
             }
           },
@@ -88,7 +88,7 @@
     "/gptStatistics": {
       "get": {
         "tags": [
-          "ArticlesStatistics"
+          "Statistics"
         ],
         "summary": "  Finds statistics based on a query ",
         "description": "Finds statistics based on a query ",
@@ -96,7 +96,7 @@
         "parameters": [
           {
             "name": "query",
-            "in": "query",
+            "in": "path",
             "description": "Unique identifier for each table. It consists of 4 numbers.",
             "required": true,
             "schema": {
