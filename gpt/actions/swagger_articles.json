@@ -1,0 +1,114 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PxWeb",
+    "description": "Official statistical data from Norway",
+    "version": "v0.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://www.qa.ssb.no/_/service/mimir"
+    }
+  ],
+  "paths": {
+    "/gptArticles": {
+      "get": {
+        "tags": [
+          "Articles"
+        ],
+        "summary": "Finds articles based on a fuzzy search query",
+        "description": "Finds articles based on a search query. GPT:  When you get the response, include all values to the end user in the prompt",
+        "operationId": "gptArticles",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Perform a free-text search for tables using an AND search logic. This search accepts multiple keywords and synonyms",
+            "required": true,
+            "deprecated": false,
+            "allowEmptyValue": false,
+            "explode": false,
+            "allowReserved": false,
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "En1": {
+                "value": "Property Price",
+                "summary": "Short English, the database interprets this as 'Property AND Price'"
+              },
+              "En2": {
+                "value": "Residential Property Price Index",
+                "summary": "Long English, the database interprets this as 'Residential AND Property AND Price AND Index' "
+              },
+              "N01": {
+                "value": "Boligpris ",
+                "summary": "Short Norwegian, the database interprets this as 'Boligpris'"
+              },
+              "No2": {
+                "value": "Bolig pris index eindom",
+                "summary": "Long Norwegian, the database interprets this as 'Bolig AND pris AND index AND eindom'"
+              }
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "The number of articles returned per page. This parameter is used for pagination. Ensure the pageSize is not too large to avoid a 'ResponseTooLargeError'.",
+            "required": true,
+            "deprecated": false,
+            "allowEmptyValue": false,
+            "explode": false,
+            "allowReserved": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 15
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": "paginating ",
+            "required": true,
+            "deprecated": false,
+            "allowEmptyValue": false,
+            "explode": false,
+            "allowReserved": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 30
+            }
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/gptStatistics": {
+      "get": {
+        "tags": [
+          "Statistics"
+        ],
+        "summary": "  Finds statistics based on a query ",
+        "description": "Finds statistics based on a query ",
+        "operationId": "gptStatistics",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "path",
+            "description": "Unique identifier for each table. It consists of 4 numbers.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "4359"
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

@@ -1,30 +1,13 @@
+# 🤖 SSB GPT Lab
 
+### Useful links
 
-# GPTs
-  1. Open the [Setup](https://github.com/PxTools/lab_gpt/blob/main/GPT/Setup.md) file
-  2. Go to chat.openai.com
-  3. Find the "Explore" menu element
-  4. Select "Create a GPT"
-  5. There are 2 panes "Create" and "Configure". Go to Configure
-  6. Insert the text and files from the setup file
+- [📝 GPT Setup Guide](./gpt/setup.md) -
+  Setup your own SSB Assistant GPT
+- [🤖 SSB Assistent (beta)](https://chat.openai.com/g/g-JWtp8Chv5-ssb-assistent-beta) - Test SSB's published GPT (currently in beta)
+- [🎬 GPT Demo](https://www.youtube.com/watch?v=9PthFM0opCA) - Demo of SSB's GPT in action
+- [📚 Wiki](https://github.com/PxTools/lab_gpt/wiki) - SSB GPT Lab Wiki
 
-#### Demo
-Get two tables and merge them into one graph:
+### Disclaimer
 
-Link to YouTube: 
-
-<a href="https://www.youtube.com/watch?v=9PthFM0opCA" target="_blank">
-    <img src="https://github.com/PxTools/lab_gpt/assets/59892221/1539c656-1f73-44c2-bd27-2e72030db731" alt="Link to demo on YouTube" width="222"/>
-</a>
-
-
-
-# Plugins
-  To be continued
-
-## Disclaimer
-
-This repository is currently under contstruction and will change frequently. 
-Used at your own risk. Data provided is testdata
-
-
+This repository is currently under contstruction and will change frequently.
