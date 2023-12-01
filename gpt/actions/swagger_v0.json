@@ -14,20 +14,20 @@
     "/api/v0/{lang}/table": {
       "get": {
         "summary": "Finds table tableIds based on a search query",
-        "description": "Step 1 request: Lists all tables with ID, but without statistics. Use this request to find relevant tables. If the user speaks another language than Norwegian, translate their request into English. Query formatting '(Residential AND Property) OR (Price AND Index)', remember to use ()",
+        "description": "Step 1 request: Lists all tables with ID, but without statistics. Use this request to find relevant tables. If the user speaks another language than Norwegian/Norsk (lang: 'no'), translate their request into English (lang: 'en').",
         "operationId": "getTables",
         "parameters": [
           {
             "name": "lang",
             "in": "path",
-            "description": "Two letter language code (ISO 639). If the user writes in Norwegian, language code 'no' MUST be used. Else use the default language code 'en' will be used.",
+            "description": "Represents the language the request is made in, and the language of the response. Always start by determining the language the user last wrote in. If the language is Norwegian/Norsk, use the language-code (lang: 'no'). If the user last wrote in english or any other language than Norwegian/Norsk, then use the language-code (lang: 'en').",
             "required": true,
             "allowEmptyValue": false,
             "schema": {
               "type": "string",
               "enum": [
-                "en",
-                "no"
+                "no",
+                "en"
               ],
               "minLength": 2,
               "maxLength": 2
@@ -35,18 +35,18 @@
             "examples": {
               "X1": {
                 "value": "en",
-                "summary": "For english"
+                "summary": "Sends requests and responds in English. Always use when the user last wrote in English or any other language than Norwegian/Norsk"
               },
               "X2": {
                 "value": "no",
-                "summary": "For norwegian"
+                "summary": "Sends requests and response in Norwegian/Norsk. Always use when the user last wrote in Norwegian/Norsk"
               }
             }
           },
           {
             "name": "query",
             "in": "query",
-            "description": "This query parameter performs database searches using a specific syntax for combining terms with AND/OR logic. To search for phrases, use AND between words (e.g., 'price AND index'). Use OR to combine different phrase searches. For example, to search for 'price index' and 'price indicators', format as '(price AND index) OR (price AND indicators)'. Include variations of your main query for comprehensive results.",
+            "description": "Use parentheses for each search phrase, keeping them concise and broad. Combine phrases with 'OR' for inclusive searches, like '(Price index in households) OR (price index) OR (price households)'. Avoid 'AND' as it may restrict results. This syntax helps accurately find statistical tables.",
             "required": true,
             "deprecated": false,
             "allowEmptyValue": false,
@@ -55,11 +55,11 @@
             },
             "examples": {
               "X1": {
-                "value": "(Residential AND Property) OR (Price AND Index)",
+                "value": "(Residential Property) OR (Price Index)",
                 "summary": "Combines the searches 'Residential Property' and 'Price Index'"
               },
               "X2": {
-                "value": "(Økonomisk AND vekst)",
+                "value": "(Økonomisk vekst)",
                 "summary": "Search for 'Økonomisk vekst'"
               }
             }
@@ -79,14 +79,14 @@
           {
             "name": "lang",
             "in": "path",
-            "description": "Two letter language code (ISO 639). If the user writes in Norwegian, language code 'no' MUST be used. Else use the default language code 'en' will be used.",
+            "description": "Represents the language the request is made in, and the language of the response. Always start by determining the language the user last wrote in. If the language is Norwegian/Norsk, use the language-code (lang: 'no'). If the user last wrote in english or any other language than Norwegian/Norsk, then use the language-code (lang: 'en').",
             "required": true,
             "allowEmptyValue": false,
             "schema": {
               "type": "string",
               "enum": [
-                "en",
-                "no"
+                "no",
+                "en"
               ],
               "minLength": 2,
               "maxLength": 2
@@ -94,11 +94,11 @@
             "examples": {
               "X1": {
                 "value": "en",
-                "summary": "For english"
+                "summary": "Sends requests and responds in English. Always use when the user last wrote in English or any other language than Norwegian/Norsk"
               },
               "X2": {
                 "value": "no",
-                "summary": "For norwegian"
+                "summary": "Sends requests and response in Norwegian/Norsk. Always use when the user last wrote in Norwegian/Norsk"
               }
             }
           },
@@ -193,14 +193,14 @@
           {
             "name": "lang",
             "in": "path",
-            "description": "Two letter language code (ISO 639). If the user writes in Norwegian, language code 'no' MUST be used. Else use the default language code 'en' will be used.",
+            "description": "Represents the language the request is made in, and the language of the response. Always start by determining the language the user last wrote in. If the language is Norwegian/Norsk, use the language-code (lang: 'no'). If the user last wrote in english or any other language than Norwegian/Norsk, then use the language-code (lang: 'en').",
             "required": true,
             "allowEmptyValue": false,
             "schema": {
               "type": "string",
               "enum": [
-                "en",
-                "no"
+                "no",
+                "en"
               ],
               "minLength": 2,
               "maxLength": 2
@@ -208,11 +208,11 @@
             "examples": {
               "X1": {
                 "value": "en",
-                "summary": "For english"
+                "summary": "Sends requests and responds in English. Always use when the user last wrote in English or any other language than Norwegian/Norsk"
               },
               "X2": {
                 "value": "no",
-                "summary": "For norwegian"
+                "summary": "Sends requests and response in Norwegian/Norsk. Always use when the user last wrote in Norwegian/Norsk"
               }
             }
           },
@@ -271,7 +271,7 @@
                             "values": {
                               "type": "array",
                               "minItems": 1,
-                              "description": "An array of selected values for the variable. Values depend on the variable's code which must match with response from operation 'GetValidVariablesAndValuesById'",
+                              "description": "An array of selected values for the variable. Values depend on the variable's code which must match with response from operation 'GetValidVariablesAndValuesById'. This cannot be empty, and must adhere to the variable's code list. Always use the 'values' from the response from operation 'GetValidVariablesAndValuesById' to match the users request. If at any point you make up your own values, revisit the response from operation 'GetValidVariablesAndValuesById' to see which values are valid for the variable's code, and never deviate.",
                               "items": {
                                 "type": "string",
                                 "description": "A specific code value within the variable's code list."
