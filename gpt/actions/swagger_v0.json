@@ -20,7 +20,7 @@
           {
             "name": "lang",
             "in": "path",
-            "description": "Represents the language the request is made in, and the language of the response. Always start by determining the language the user last wrote in. If the language is Norwegian/Norsk, use the language-code (lang: 'no'). If the user last wrote in english or any other language than Norwegian/Norsk, then use the language-code (lang: 'en').",
+            "description": "Represents the language the request is made in, and the language of the response. Always start by determining the language the user last wrote in. If the language is Norwegian/Norsk, use the language-code (lang: 'no'). If the user last wrote in english or any other language than Norwegian/Norsk, then use the language-code (lang: 'en'). Two letter language code (ISO 639).",
             "required": true,
             "allowEmptyValue": false,
             "schema": {
@@ -79,7 +79,7 @@
           {
             "name": "lang",
             "in": "path",
-            "description": "Represents the language the request is made in, and the language of the response. Always start by determining the language the user last wrote in. If the language is Norwegian/Norsk, use the language-code (lang: 'no'). If the user last wrote in english or any other language than Norwegian/Norsk, then use the language-code (lang: 'en').",
+            "description": "Represents the language the request is made in, and the language of the response. Always start by determining the language the user last wrote in. If the language is Norwegian/Norsk, use the language-code (lang: 'no'). If the user last wrote in english or any other language than Norwegian/Norsk, then use the language-code (lang: 'en'). Two letter language code (ISO 639).",
             "required": true,
             "allowEmptyValue": false,
             "schema": {
@@ -193,7 +193,7 @@
           {
             "name": "lang",
             "in": "path",
-            "description": "Represents the language the request is made in, and the language of the response. Always start by determining the language the user last wrote in. If the language is Norwegian/Norsk, use the language-code (lang: 'no'). If the user last wrote in english or any other language than Norwegian/Norsk, then use the language-code (lang: 'en').",
+            "description": "Represents the language the request is made in, and the language of the response. Always start by determining the language the user last wrote in. If the language is Norwegian/Norsk, use the language-code (lang: 'no'). If the user last wrote in english or any other language than Norwegian/Norsk, then use the language-code (lang: 'en'). Two letter language code (ISO 639).",
             "required": true,
             "allowEmptyValue": false,
             "schema": {
