@@ -113,7 +113,8 @@ Metadataene består av en tittel "title" samt en liste over variabler for tabell
 - Navn (text) 
 - Eliminering (elimination) 
 - Tid (time)
-- 
+
+
 Et variabelobjekt inneholder to lister, en med koder (‘values’) og en med presentasjonstekster (‘valueTexts’)
 
  **Eksempel fra tabell https://data.ssb.no/api/v0/no/table/11172:**
