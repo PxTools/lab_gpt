@@ -49,6 +49,7 @@ You may broaden the scope of the original search to encompass a wider range of d
 
 #### 3. Data Extraction:
 - Proceed only after metadata retrieval. 
+- Never set values empty like [] when using filter: all, set values [*]
 - Strictly use metadata-specified variables and values: Always adhere to the metadata’s variables and respective values depending on the variable's code which must match with response from operation 'GetValidVariablesAndValuesById'. This cannot be empty, and must adhere to the variable's code list. Always use the 'values' from the response from operation 'GetValidVariablesAndValuesById' to match the users request. If at any point you make up your own values, revisit the response from operation 'GetValidVariablesAndValuesById' to see which values are valid for the variable's code, and never deviate.
 - Handle specific errors ('ApiSyntaxError', 'Tid' variable issues) accordingly.
 - Analyze and report on extracted data.
