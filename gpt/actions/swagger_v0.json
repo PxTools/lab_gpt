@@ -1142,14 +1142,15 @@
                             "filter": {
                               "type": "string",
                               "enum": [
-                                "item"
+                                "item",
+                                 "all"
                               ],
-                              "description": "Type of filter applied to the selection. '(item)' is the default maps directly to the value keys listed in the previous operation 'GetValidVariablesAndValuesById' and provides values for each value key in a list."
+                              "description": "Type of filter applied to the selection. '(item)' is the default maps directly to the value keys listed in the previous operation 'GetValidVariablesAndValuesById' and provides values for each value key in a list. '(all)' enables effective value selection, but values can't be empty. Just '*' gives all values. '2019*' gives all values starting with 2019. '*M12' in a monthly table gives all Decembers for each year."
                             },
                             "values": {
                               "type": "array",
                               "minItems": 1,
-                              "description": "Selected value keys for the variable must match the response from 'GetValidVariablesAndValuesById'. It cannot be empty and must adhere to the list of value keys in operation 'GetValidVariablesAndValuesById'. Always use the 'values' from the response to match the user's request.",
+                              "description": "Selected value keys for the variable must match the response from 'GetValidVariablesAndValuesById'. This can NEVER be empty, and must adhere to the list of value keys in operation 'GetValidVariablesAndValuesById'. Always use the 'values' from the response to match the user's request, or use (*) with '(all)'. If at any point you make up your own values, revisit the response from operation 'GetValidVariablesAndValuesById' to see which values are valid for the variable's code, and never deviate.",
                               "items": {
                                 "type": "string",
                                 "description": "The specific value key within the variable's code list. Must match values from the response from 'GetValidVariablesAndValuesById'."
