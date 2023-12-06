@@ -13,13 +13,14 @@
   "paths": {
     "/timezone/{area}/{location}": {
       "get": {
+        "x-openai-isConsequential": false,
         "summary": "request the current time for a timezone.",
         "operationId": "getTimeInEuropeOslo",
         "parameters": [
           {
             "name": "area",
             "in": "path",
-            "description": "This value shoud ALWAYS be 'Europe' ",
+            "description": "This value shoud ALWAYS be 'Europe'",
             "required": true,
             "schema": {
               "type": "string"
@@ -29,7 +30,7 @@
             "name": "location",
             "in": "path",
             "required": true,
-            "description": "This value shoud ALWAYS be 'Oslo' ",
+            "description": "This value should ALWAYS be 'Oslo'",
             "schema": {
               "type": "string"
             }
