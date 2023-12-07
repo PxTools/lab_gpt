@@ -13,6 +13,7 @@
   "paths": {
     "/api/v0/{lang}/table": {
       "get": {
+        "x-openai-isConsequential": false,
         "summary": "Finds table tableIds based on a search query",
         "description": "Lists all tables with Id and title, but without statistics. Use table titles to rank relevancy against the user's query, and serve only the most relevant tables. Always respond in the same language the user prompts with.",
         "operationId": "getTables",
@@ -35,22 +36,22 @@
             "examples": {
               "English Language Example:": {
                 "value": "en",
-                "description": "Use 'en' for English queries. All request parameters and data will be processed in English."
+                "description": "Use 'en' for English queries. All request parameters and data will be processed in English. All request params and data MUST be in English."
               },
               "Norwegian Language Example": {
                 "value": "no",
-                "description": "Select 'no' for Norwegian queries. Requests and responses are handled in Norwegian."
+                "description": "Select 'no' for Norwegian queries. Requests and responses are handled in Norwegian. All request params and data MUST be in Norwegian."
               },
               "Non-Norwegian and Non-English Language Example": {
                 "value": "en",
-                "description": "For languages other than Norwegian or English, use 'en'. All requests will be processed in English, matching the user's input language."
+                "description": "For languages other than Norwegian or English, use 'en'. All requests will be processed in English, matching the user's input language. All request params and data MUST be in English."
               }
             }
           },
           {
             "name": "query",
             "in": "query",
-            "description": "Use parentheses for each search phrase. First start with one phrase '(houshold prices)'. If no results, combine phrases with 'OR' for inclusive searches, like '(household prices) OR (price index)'. Avoid 'AND' as it may restrict results. This syntax helps accurately find statistical tables.",
+            "description": "Use parentheses for each search phrase. First start with one phrase '(household prices)'. If no results, combine phrases with 'OR' for inclusive searches, like '(household prices) OR (price index)'. Avoid 'AND' as it may restrict results. This syntax helps accurately find statistical tables.",
             "required": true,
             "deprecated": false,
             "allowEmptyValue": false,
@@ -60,7 +61,7 @@
             "examples": {
               "Initial search attempt": {
                 "value": "(årslønn)",
-                "description": "Initial search attempt. The user's prompt was 'Har du data på årslønn i Norge fra 1998? Here 'årslønn' is the main keyword. The user's prompt is in Norwegian/Norsk, so use the language-code (lang: 'no'). 'Norge' and '1998' is too detailed, use in later request. Phrase is therefore '(årslønn)'."
+                "description": "Initial search attempt. The user's prompt was 'Har du data på årslønn i Norge fra 1998?' Here 'årslønn' is the main keyword. The user's prompt is in Norwegian/Norsk, so use the language-code (lang: 'no'). 'Norge' and '1998' is too detailed, use in later request. Phrase is therefore '(årslønn)'."
               },
               "Extend search if no results from previous search": {
                 "value": "(residential property) OR (property)",
@@ -97,6 +98,7 @@
     },
     "/api/v0/{lang}/table/{id}": {
       "get": {
+        "x-openai-isConsequential": false,
         "tags": [
           "Table"
         ],
@@ -122,15 +124,15 @@
             "examples": {
               "English Language Example:": {
                 "value": "en",
-                "description": "Use 'en' for English queries. All request parameters and data will be processed in English."
+                "description": "Use 'en' for English queries. All request parameters and data will be processed in English. All request params and data MUST be in English."
               },
               "Norwegian Language Example": {
                 "value": "no",
-                "description": "Select 'no' for Norwegian queries. Requests and responses are handled in Norwegian."
+                "description": "Select 'no' for Norwegian queries. Requests and responses are handled in Norwegian. All request params and data MUST be in Norwegian."
               },
               "Non-Norwegian and Non-English Language Example": {
                 "value": "en",
-                "description": "For languages other than Norwegian or English, use 'en'. All requests will be processed in English, matching the user's input language."
+                "description": "For languages other than Norwegian or English, use 'en'. All requests will be processed in English, matching the user's input language. All request params and data MUST be in English."
               }
             }
           },
@@ -1056,6 +1058,7 @@
         }
       },
       "post": {
+        "x-openai-isConsequential": false,
         "tags": [
           "Table"
         ],
@@ -1081,15 +1084,15 @@
             "examples": {
               "English Language Example:": {
                 "value": "en",
-                "description": "Use 'en' for English queries. All request parameters and data will be processed in English."
+                "description": "Use 'en' for English queries. All request parameters and data will be processed in English. All request params and data MUST be in English."
               },
               "Norwegian Language Example": {
                 "value": "no",
-                "description": "Select 'no' for Norwegian queries. Requests and responses are handled in Norwegian."
+                "description": "Select 'no' for Norwegian queries. Requests and responses are handled in Norwegian. All request params and data MUST be in Norwegian."
               },
               "Non-Norwegian and Non-English Language Example": {
                 "value": "en",
-                "description": "For languages other than Norwegian or English, use 'en'. All requests will be processed in English, matching the user's input language."
+                "description": "For languages other than Norwegian or English, use 'en'. All requests will be processed in English, matching the user's input language. All request params and data MUST be in English."
               }
             }
           },
