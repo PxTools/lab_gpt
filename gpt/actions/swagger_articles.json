@@ -7,11 +7,11 @@
   },
   "servers": [
     {
-      "url": "https://www.qa.ssb.no/_/service/mimir"
+      "url": "https://www.qa.ssb.no"
     }
   ],
   "paths": {
-    "/gptArticles": {
+    "/_/service/mimir/gptArticles": {
       "get": {
         "tags": [
           "Articles"
@@ -82,11 +82,80 @@
             }
           }
         ],
-        "deprecated": false
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "results"
+                  ],
+                  "properties": {
+                    "results": {
+                      "type": "array",
+                      "description": "Array of articles fetched based on a query",
+                      "items": {
+                        "type": "object",
+                        "description": "Represents data connected to the specific article",
+                        "required": [
+                          "publishDate",
+                          "title",
+                          "url",
+                          "associatedStatistics",
+                          "ingress",
+                          "articleText"
+                        ],
+                        "properties": {
+                          "publishDate": {
+                            "type": "string",
+                            "description": "The article's publish date"
+                          },
+                          "title": {
+                            "type": "string",
+                            "description": "Title of the article. Use title to evaluate relevance to user's query"
+                          },
+                          "url": {
+                            "type": "string",
+                            "description": "The article's url"
+                          },
+                          "associatedStatistics": {
+                            "type": "array",
+                            "description": "Array of associated statistics pages",
+                            "items": {
+                              "type": "object",
+                              "description": "Represents an associated statistics page where relevant tables and other information is presented",
+                              "properties": {
+                                "text": {
+                                  "type": "string",
+                                  "description": "Title of associated statistics article"
+                                },
+                                "href": {
+                                  "type": "string",
+                                  "description": "Url path for associated statistics. Use base URL with this path to generate a valid url"
+                                }
+                              }
+                            }
+                          },
+                          "ingress": {
+                            "type": "string",
+                            "description": "Short summary/description of the article"
+                          },
+                          "articleText": {
+                            "type": "string",
+                            "description": "The article's text content"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
-  },
-  "components": {
-    "schemas": {}
   }
 }
