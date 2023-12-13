@@ -1,0 +1,161 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PxWeb",
+    "description": "Official statistical data from Norway",
+    "version": "v0.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://data.qa.ssb.no/pxapi2-beta"
+    }
+  ],
+  "paths": {
+    "/api/v2/tables": {
+      "get": {
+        "summary": "Finds table tableIds based on a search query",
+        "description": "Step 1 request: Lists all tables with ID, but without statistics. Use this request to find relevant tables. If the user speaks another language than Norwegian, translate their request into English. Query formatting '(Residential AND Property) OR (Price AND Index)', remember to use ()",
+        "operationId": "getTables",
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "path",
+            "description": "Two letter language code (ISO 639). If the user writes in Norwegian, language code 'no' MUST be used. Else use the language code 'en'.",
+            "required": true,
+            "deprecated": false,
+            "allowEmptyValue": false,
+            "explode": false,
+            "allowReserved": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "en",
+                "no"
+              ],
+              "minLength": 2,
+              "maxLength": 2
+            },
+            "examples": {
+              "X1": {
+                "value": "en",
+                "summary": "For English"
+              },
+              "X2": {
+                "value": "no",
+                "summary": "For Norwegian"
+              }
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Perform a free-text search for tables using an OR search logic. This search accepts multiple keywords and synonyms. For improved results, include both synonyms and the original search terms in the query parameters.",
+            "required": true,
+            "deprecated": false,
+            "allowEmptyValue": false,
+            "explode": false,
+            "allowReserved": false,
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "En1": {
+                "value": "Property Price",
+                "summary": "Short English"
+              },
+              "En2": {
+                "value": "Residential Property Price Index",
+                "summary": "Long English"
+              },
+              "N01": {
+                "value": "Boligpris ",
+                "summary": "Short Norwegian"
+              },
+              "No2": {
+                "value": "Bolig pris index eindom",
+                "summary": "Long Norwegian"
+              }
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "The number of tables returned per page. This parameter is used for pagination, with approximately 8000 tables available in total. Ensure the pageSize is not too large to avoid a 'ResponseTooLargeError'.",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": false,
+            "explode": false,
+            "allowReserved": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 3,
+              "maximum": 15
+            }
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/api/v2/tables/{id}/data": {
+      "get": {
+        "tags": [
+          "Table"
+        ],
+        "summary": "Get data from table by id: {id}.",
+        "description": "Step 2 get data.",
+        "operationId": "GetTableData",
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "path",
+            "description": "Two letter language code (ISO 639). If the user writes in Norwegian, language code 'no' MUST be used. Else use the language code 'en'.",
+            "required": true,
+            "deprecated": false,
+            "allowEmptyValue": false,
+            "explode": false,
+            "allowReserved": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "en",
+                "no"
+              ],
+              "minLength": 2,
+              "maxLength": 2
+            },
+            "examples": {
+              "X1": {
+                "value": "en",
+                "summary": "For English"
+              },
+              "X2": {
+                "value": "no",
+                "summary": "For Norwegian"
+              }
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Unique identifier for each table. Typically it consists of 5 numbers.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "12880"
+          },
+          {
+            "in": "query",
+            "name": "outputFormat",
+            "required": false,
+            "description": "Specify which output format you want the response in. Available formats are: csv2, json and xlsx. ",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+        
+      }
+    }
+  }
+}
