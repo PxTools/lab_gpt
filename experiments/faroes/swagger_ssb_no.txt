@@ -13,40 +13,45 @@
   "paths": {
     "/api/v0/{lang}/table": {
       "get": {
+        "x-openai-isConsequential": false,
         "summary": "Finds table tableIds based on a search query",
-        "description": "Step 1 request: Lists all tables with ID, but without statistics. Use this request to find relevant tables. If the user speaks another language than Norwegian, translate their request into English. Query formatting '(Residential AND Property) OR (Price AND Index)', remember to use ()",
+        "description": "Lists all tables with Id and title, but without statistics. Use table titles to rank relevancy against the user's query, and serve only the most relevant tables. Always respond in the same language the user prompts with.",
         "operationId": "getTables",
         "parameters": [
           {
             "name": "lang",
             "in": "path",
-            "description": "Two letter language code (ISO 639). If the user writes in Norwegian, language code 'no' MUST be used. Else use the default language code 'en' will be used.",
+            "description": "Specifies the language for requests and responses. Use 'no' for Norwegian/Norsk, and 'en' for English or any other language. Ensure all request parameters and data align with this language code. Adheres to ISO 639-1 codes.",
             "required": true,
             "allowEmptyValue": false,
             "schema": {
               "type": "string",
               "enum": [
-                "en",
-                "no"
+                "no",
+                "en"
               ],
               "minLength": 2,
               "maxLength": 2
             },
             "examples": {
-              "X1": {
+              "English Language Example:": {
                 "value": "en",
-                "summary": "For english"
+                "description": "Use 'en' for English queries. All request parameters and data will be processed in English. All request params and data MUST be in English."
               },
-              "X2": {
+              "Norwegian Language Example": {
                 "value": "no",
-                "summary": "For norwegian"
+                "description": "Select 'no' for Norwegian queries. Requests and responses are handled in Norwegian. All request params and data MUST be in Norwegian."
+              },
+              "Non-Norwegian and Non-English Language Example": {
+                "value": "en",
+                "description": "For languages other than Norwegian or English, use 'en'. All requests will be processed in English, matching the user's input language. All request params and data MUST be in English."
               }
             }
           },
           {
             "name": "query",
             "in": "query",
-            "description": "This query parameter performs database searches using a specific syntax for combining terms with AND/OR logic. To search for phrases, use AND between words (e.g., 'price AND index'). Use OR to combine different phrase searches. For example, to search for 'price index' and 'price indicators', format as '(price AND index) OR (price AND indicators)'. Include variations of your main query for comprehensive results.",
+            "description": "Use parentheses for each search phrase. First start with one phrase '(household prices)'. If no results, combine phrases with 'OR' for inclusive searches, like '(household prices) OR (price index)'. Avoid 'AND' as it may restrict results. This syntax helps accurately find statistical tables.",
             "required": true,
             "deprecated": false,
             "allowEmptyValue": false,
@@ -54,13 +59,37 @@
               "type": "string"
             },
             "examples": {
-              "X1": {
-                "value": "(Residential AND Property) OR (Price AND Index)",
-                "summary": "Combines the searches 'Residential Property' and 'Price Index'"
+              "Initial search attempt": {
+                "value": "(årslønn)",
+                "description": "Initial search attempt. The user's prompt was 'Har du data på årslønn i Norge fra 1998?' Here 'årslønn' is the main keyword. The user's prompt is in Norwegian/Norsk, so use the language-code (lang: 'no'). 'Norge' and '1998' is too detailed, use in later request. Phrase is therefore '(årslønn)'."
               },
-              "X2": {
-                "value": "(Økonomisk AND vekst)",
-                "summary": "Search for 'Økonomisk vekst'"
+              "Extend search if no results from previous search": {
+                "value": "(residential property) OR (property)",
+                "description": "Previous attempt of '(residential property)' yielded no results. The search must therefore be extended in this next attempt automatically. Since no results from '(residential property)' we broaden the search with 'OR' to include '(property)'. User's prompt was in English, lang: 'en' used."
+              },
+              "Minimize search if ResponseTooLargeError": {
+                "value": "(population growth)",
+                "description": "Previous attempt of '(population)' returned a 'ResponseTooLargeError' from user's prompt 'Do you have data on population change?'. The search must be minimized in this next attempt automatically. We replace the previous search with '(population growth)' to be more specific and reduce response size."
+              },
+              "Ambiguous user query": {
+                "value": "(employment rate) OR (job market)",
+                "description": "User's prompt was 'What's the current state of the job market?' which is ambiguous. The initial search uses '(employment rate)' as the primary keyword. If this doesn't yield results, the search is broadened with 'OR' to include '(job market)' to cover related aspects. Language code is 'en'."
+              },
+              "Specific and Complex Query": {
+                "value": "(GDP growth 2020) OR (economic growth 2020)",
+                "description": "User's prompt 'Can you show GDP growth for Norway in 2020?' is specific. Start with '(GDP growth 2020)'. If unsuccessful, expand with 'OR' to '(economic growth 2020)' to find related data. Avoid adding 'Norway' initially to prevent over-narrowing the search."
+              },
+              "Non-Standard Terminology": {
+                "value": "(omsorg for eldre) OR (tjenester for senioromsorg)",
+                "description": "For a prompt like 'Har du informasjon om omsorgstjenester for eldre?', start with '(omsorg for eldre)'. If no results are found, use 'OR' to include '(tjenester for senioromsorg)', catering to alternative terminology. Language is 'no'."
+              },
+              "Highly Specialized Topic": {
+                "value": "(bruk av fornybar energi) OR (bærekraftig energiforbruk)",
+                "description": "In response to 'Hva er statusen for bruk av fornybar energi i Norge?', begin with '(bruk av fornybar energi)'. If needed, expand with 'OR' to '(bærekraftig energiforbruk)' to cover broader but related topics. Use 'no' for language."
+              },
+              "Contemporary Issue": {
+                "value": "(COVID-19-påvirkning) OR (økonomiske effekter av pandemien)",
+                "description": "For a prompt like 'Hvordan har COVID-19 påvirket økonomien?', the search starts with '(COVID-19-påvirkning)'. If no results are found, it's extended with 'OR' to '(økonomiske effekter av pandemien)' to encompass related economic aspects. Language is 'no'."
               }
             }
           }
@@ -69,36 +98,41 @@
     },
     "/api/v0/{lang}/table/{id}": {
       "get": {
+        "x-openai-isConsequential": false,
         "tags": [
           "Table"
         ],
         "summary": "Get valid variables and values for 'GetTableDataByPost', from a tabel with id: {id}.",
-        "description": "Step 2 request: Used for listing all valid variables and values about a specific table. These variables and values are needed to generate a valid request to 'GetTableDataByPost', and must be used to match the users request when generating a valid requestBody in 'GetTableDataByPost'.",
+        "description": "Lists all valid variables and values available in a table. All variables returned in this API response (variables and their valid values) must be included in the subsequent request 'GetTableDataByPost'. Variables can be different from table to table. 'Tid' is always included.",
         "operationId": "GetValidVariablesAndValuesById",
         "parameters": [
           {
             "name": "lang",
             "in": "path",
-            "description": "Two letter language code (ISO 639). If the user writes in Norwegian, language code 'no' MUST be used. Else use the default language code 'en' will be used.",
+            "description": "Specifies the language for requests and responses. Use 'no' for Norwegian/Norsk, and 'en' for English or any other language. Ensure all request parameters and data align with this language code. Adheres to ISO 639-1 codes.",
             "required": true,
             "allowEmptyValue": false,
             "schema": {
               "type": "string",
               "enum": [
-                "en",
-                "no"
+                "no",
+                "en"
               ],
               "minLength": 2,
               "maxLength": 2
             },
             "examples": {
-              "X1": {
+              "English Language Example:": {
                 "value": "en",
-                "summary": "For english"
+                "description": "Use 'en' for English queries. All request parameters and data will be processed in English. All request params and data MUST be in English."
               },
-              "X2": {
+              "Norwegian Language Example": {
                 "value": "no",
-                "summary": "For norwegian"
+                "description": "Select 'no' for Norwegian queries. Requests and responses are handled in Norwegian. All request params and data MUST be in Norwegian."
+              },
+              "Non-Norwegian and Non-English Language Example": {
+                "value": "en",
+                "description": "For languages other than Norwegian or English, use 'en'. All requests will be processed in English, matching the user's input language. All request params and data MUST be in English."
               }
             }
           },
@@ -143,6 +177,7 @@
                       "type": "array",
                       "items": {
                         "type": "object",
+                        "description": "This object represents a variable in the table. The 'code' is used to access the variable in operation 'GetTableDataByPost'. The 'values' is used to access the variable value keys in operation 'GetTableDataByPost'.",
                         "required": [
                           "code",
                           "text",
@@ -152,7 +187,7 @@
                         "properties": {
                           "code": {
                             "type": "string",
-                            "description": "Variable code available in table metadata"
+                            "description": "Code to access variable available in table. If the code is 'Tid', make sure to interpret the user's intent and translate it to the correct time period specified in the values array of 'Tid'."
                           },
                           "text": {
                             "type": "string",
@@ -162,7 +197,7 @@
                             "type": "array",
                             "items": {
                               "type": "string",
-                              "description": "Variable value code used to access the variable value in operation 'GetTableDataByPost'"
+                              "description": "Variable value keys used to access the variable value in a table. ONLY use these values to access the variable value in operation 'GetTableDataByPost'. If the variable code is 'Tid', make sure to interpret the user's intent and adjust to the correct time period specified in this array."
                             }
                           },
                           "valueTexts": {
@@ -176,6 +211,846 @@
                       }
                     }
                   }
+                },
+                "examples": {
+                  "Get available variables and values from table_id 12880": {
+                    "description": "Shows the response from operation 'GetValidVariablesAndValuesById' for table_id: '12880'. The 'Tid' variable has values representing years, meaning that only these years are available in the table. If the user asks for values outside this scope, adjust their request to the closest valid time frame.",
+                    "value": {
+                      "title": "12880: Makroøkonomiske hovedstørrelser. Regnskap og prognoser, etter statistikkvariabel og år",
+                      "variables": [
+                        {
+                          "code": "ContentsCode",
+                          "text": "statistikkvariabel",
+                          "values": [
+                            "KonsumHushold",
+                            "KonsumOffentl",
+                            "BtoInvFastReal",
+                            "BtoInvUtvRor",
+                            "BtoInvFastlNorge",
+                            "BtoInvNaring",
+                            "BtoInvBolig",
+                            "BtoInvOffForv",
+                            "EtterspFastland",
+                            "Eksport",
+                            "EkspTradVarer",
+                            "EkspOljeGass",
+                            "Import",
+                            "ImpTradVarer",
+                            "BNP",
+                            "BNPFastland",
+                            "BNPIndustri",
+                            "BNPLopPriser",
+                            "TimeverkFastland",
+                            "Sysselsatte",
+                            "ArbStyrke",
+                            "Yrkesandel",
+                            "ArbLedighet",
+                            "Aarslonn",
+                            "KPI",
+                            "KPIJAE",
+                            "EksportprisTrad",
+                            "ImportprisTrad",
+                            "Boligpris",
+                            "HusholdDisp",
+                            "HusholdSpare",
+                            "PengemRente",
+                            "UtlaanRente",
+                            "Realrente",
+                            "ImpVKroneKurs",
+                            "NOKperEuro",
+                            "Driftsbalanse",
+                            "DriftsbalanseBNP",
+                            "EksportMarked",
+                            "KonsumprisEuro",
+                            "PengemRenteEuro",
+                            "OljePrisDollar",
+                            "OljePrisKr"
+                          ],
+                          "valueTexts": [
+                            "Konsum i husholdninger mv",
+                            "Konsum i offentlig forvaltning",
+                            "Bruttoinvestering i fast realkapital",
+                            "Utvinning og rørtransport",
+                            "Bruttoinvestering Fastlands-Norge",
+                            "Næringer",
+                            "Bolig",
+                            "Offentlig forvaltning",
+                            "Etterspørsel fra Fastlands-Norge",
+                            "Eksport",
+                            "Eksport av tradisjonelle varer",
+                            "Eksport av råolje og naturgass",
+                            "Import",
+                            "Import av tradisjonelle varer",
+                            "Bruttonasjonalprodukt",
+                            "BNP Fastlands-Norge",
+                            "BNP Industri og bergverk",
+                            "BNP i løpende priser (milliarder kr)",
+                            "Utførte timeverk i Fastlands-Norge",
+                            "Sysselsatte personer",
+                            "Arbeidsstyrke",
+                            "Yrkesandel (nivå)",
+                            "Arbeidsledighetsrate (nivå)",
+                            "Årslønn",
+                            "Konsumprisindeksen (KPI)",
+                            "KPI-JAE",
+                            "Eksportpris tradisjonelle varer",
+                            "Importpris tradisjonelle varer",
+                            "Boligpris",
+                            "Husholdningenes disponible realinntekt",
+                            "Husholdningenes sparerate (nivå)",
+                            "Pengemarkedsrente (nivå)",
+                            "Utlånsrente, rammelån (nivå)",
+                            "Realrente etter skatt (nivå)",
+                            "Importveid kronekurs (44 land)",
+                            "NOK per euro (nivå)",
+                            "Driftsbalansen (milliarder kr)",
+                            "Driftsbalansen i prosent av BNP",
+                            "Eksportmarkedsindikator",
+                            "Konsumpris euro-området",
+                            "Pengemarkedsrente, euro (nivå)",
+                            "Råoljepris i dollar (nivå)",
+                            "Råoljepris i kroner (nivå)"
+                          ]
+                        },
+                        {
+                          "code": "Tid",
+                          "text": "år",
+                          "values": [
+                            "1991",
+                            "1992",
+                            "1993",
+                            "1994",
+                            "1995",
+                            "1996",
+                            "1997",
+                            "1998",
+                            "1999",
+                            "2000",
+                            "2001",
+                            "2002",
+                            "2003",
+                            "2004",
+                            "2005",
+                            "2006",
+                            "2007",
+                            "2008",
+                            "2009",
+                            "2010",
+                            "2011",
+                            "2012",
+                            "2013",
+                            "2014",
+                            "2015",
+                            "2016",
+                            "2017",
+                            "2018",
+                            "2019",
+                            "2020",
+                            "2021",
+                            "2022",
+                            "2023",
+                            "2024",
+                            "2025",
+                            "2026"
+                          ],
+                          "valueTexts": [
+                            "1991",
+                            "1992",
+                            "1993",
+                            "1994",
+                            "1995",
+                            "1996",
+                            "1997",
+                            "1998",
+                            "1999",
+                            "2000",
+                            "2001",
+                            "2002",
+                            "2003",
+                            "2004",
+                            "2005",
+                            "2006",
+                            "2007",
+                            "2008",
+                            "2009",
+                            "2010",
+                            "2011",
+                            "2012",
+                            "2013",
+                            "2014",
+                            "2015",
+                            "2016",
+                            "2017",
+                            "2018",
+                            "2019",
+                            "2020",
+                            "2021",
+                            "2022",
+                            "2023",
+                            "2024",
+                            "2025",
+                            "2026"
+                          ],
+                          "time": true
+                        }
+                      ]
+                    }
+                  },
+                  "Get available variables and values from table_id 13760": {
+                    "description": "Shows the response from operation 'GetValidVariablesAndValuesById' for table_id: '13760'. The 'Tid' variable has values for months of a year, meaning only these months are available in the table. If the user asks for values outside this scope, adjust their request to the closest valid time frame.",
+                    "value": {
+                      "title": "13760: Arbeidsstyrken, sysselsatte, arbeidsledige  og utførte ukeverk for personer 15-74 år, etter kjønn, alder, type justering, statistikkvariabel og måned",
+                      "variables": [
+                        {
+                          "code": "Kjonn",
+                          "text": "kjønn",
+                          "values": [
+                            "0",
+                            "1",
+                            "2"
+                          ],
+                          "valueTexts": [
+                            "Begge kjønn",
+                            "Menn",
+                            "Kvinner"
+                          ],
+                          "elimination": true
+                        },
+                        {
+                          "code": "Alder",
+                          "text": "alder",
+                          "values": [
+                            "15-74",
+                            "15-24",
+                            "25-74"
+                          ],
+                          "valueTexts": [
+                            "15-74 år",
+                            "15-24 år",
+                            "25-74 år"
+                          ],
+                          "elimination": true
+                        },
+                        {
+                          "code": "Justering",
+                          "text": "type justering",
+                          "values": [
+                            "T",
+                            "3MGG",
+                            "S",
+                            "IS"
+                          ],
+                          "valueTexts": [
+                            "Trend",
+                            "Sesongjustert, 3-måneders glidende gjennomsnitt",
+                            "Sesongjustert",
+                            "Ikke sesongjustert"
+                          ]
+                        },
+                        {
+                          "code": "ContentsCode",
+                          "text": "statistikkvariabel",
+                          "values": [
+                            "Arbeidsstyrken",
+                            "Sysselsatte",
+                            "Ukeverk",
+                            "Arbeidsledige",
+                            "ArbStyrkProsBefolkn",
+                            "SysselProsBefolkn",
+                            "ArbledProsArbstyrk",
+                            "Befolkningen"
+                          ],
+                          "valueTexts": [
+                            "Arbeidsstyrken (1000 personer)",
+                            "Sysselsatte (1000 personer)",
+                            "Utførte ukeverk (1000 ukeverk) à 37,5 timer",
+                            "Arbeidsledige (1000 personer)",
+                            "Arbeidsstyrken i prosent av befolkningen",
+                            "Sysselsatte i prosent av befolkningen",
+                            "Arbeidsledige i prosent av arbeidsstyrken",
+                            "Befolkningen (1000 personer)"
+                          ]
+                        },
+                        {
+                          "code": "Tid",
+                          "text": "måned",
+                          "values": [
+                            "2006M01",
+                            "2006M02",
+                            "2006M03",
+                            "2006M04",
+                            "2006M05",
+                            "2006M06",
+                            "2006M07",
+                            "2006M08",
+                            "2006M09",
+                            "2006M10",
+                            "2006M11",
+                            "2006M12",
+                            "2007M01",
+                            "2007M02",
+                            "2007M03",
+                            "2007M04",
+                            "2007M05",
+                            "2007M06",
+                            "2007M07",
+                            "2007M08",
+                            "2007M09",
+                            "2007M10",
+                            "2007M11",
+                            "2007M12",
+                            "2008M01",
+                            "2008M02",
+                            "2008M03",
+                            "2008M04",
+                            "2008M05",
+                            "2008M06",
+                            "2008M07",
+                            "2008M08",
+                            "2008M09",
+                            "2008M10",
+                            "2008M11",
+                            "2008M12",
+                            "2009M01",
+                            "2009M02",
+                            "2009M03",
+                            "2009M04",
+                            "2009M05",
+                            "2009M06",
+                            "2009M07",
+                            "2009M08",
+                            "2009M09",
+                            "2009M10",
+                            "2009M11",
+                            "2009M12",
+                            "2010M01",
+                            "2010M02",
+                            "2010M03",
+                            "2010M04",
+                            "2010M05",
+                            "2010M06",
+                            "2010M07",
+                            "2010M08",
+                            "2010M09",
+                            "2010M10",
+                            "2010M11",
+                            "2010M12",
+                            "2011M01",
+                            "2011M02",
+                            "2011M03",
+                            "2011M04",
+                            "2011M05",
+                            "2011M06",
+                            "2011M07",
+                            "2011M08",
+                            "2011M09",
+                            "2011M10",
+                            "2011M11",
+                            "2011M12",
+                            "2012M01",
+                            "2012M02",
+                            "2012M03",
+                            "2012M04",
+                            "2012M05",
+                            "2012M06",
+                            "2012M07",
+                            "2012M08",
+                            "2012M09",
+                            "2012M10",
+                            "2012M11",
+                            "2012M12",
+                            "2013M01",
+                            "2013M02",
+                            "2013M03",
+                            "2013M04",
+                            "2013M05",
+                            "2013M06",
+                            "2013M07",
+                            "2013M08",
+                            "2013M09",
+                            "2013M10",
+                            "2013M11",
+                            "2013M12",
+                            "2014M01",
+                            "2014M02",
+                            "2014M03",
+                            "2014M04",
+                            "2014M05",
+                            "2014M06",
+                            "2014M07",
+                            "2014M08",
+                            "2014M09",
+                            "2014M10",
+                            "2014M11",
+                            "2014M12",
+                            "2015M01",
+                            "2015M02",
+                            "2015M03",
+                            "2015M04",
+                            "2015M05",
+                            "2015M06",
+                            "2015M07",
+                            "2015M08",
+                            "2015M09",
+                            "2015M10",
+                            "2015M11",
+                            "2015M12",
+                            "2016M01",
+                            "2016M02",
+                            "2016M03",
+                            "2016M04",
+                            "2016M05",
+                            "2016M06",
+                            "2016M07",
+                            "2016M08",
+                            "2016M09",
+                            "2016M10",
+                            "2016M11",
+                            "2016M12",
+                            "2017M01",
+                            "2017M02",
+                            "2017M03",
+                            "2017M04",
+                            "2017M05",
+                            "2017M06",
+                            "2017M07",
+                            "2017M08",
+                            "2017M09",
+                            "2017M10",
+                            "2017M11",
+                            "2017M12",
+                            "2018M01",
+                            "2018M02",
+                            "2018M03",
+                            "2018M04",
+                            "2018M05",
+                            "2018M06",
+                            "2018M07",
+                            "2018M08",
+                            "2018M09",
+                            "2018M10",
+                            "2018M11",
+                            "2018M12",
+                            "2019M01",
+                            "2019M02",
+                            "2019M03",
+                            "2019M04",
+                            "2019M05",
+                            "2019M06",
+                            "2019M07",
+                            "2019M08",
+                            "2019M09",
+                            "2019M10",
+                            "2019M11",
+                            "2019M12",
+                            "2020M01",
+                            "2020M02",
+                            "2020M03",
+                            "2020M04",
+                            "2020M05",
+                            "2020M06",
+                            "2020M07",
+                            "2020M08",
+                            "2020M09",
+                            "2020M10",
+                            "2020M11",
+                            "2020M12",
+                            "2021M01",
+                            "2021M02",
+                            "2021M03",
+                            "2021M04",
+                            "2021M05",
+                            "2021M06",
+                            "2021M07",
+                            "2021M08",
+                            "2021M09",
+                            "2021M10",
+                            "2021M11",
+                            "2021M12",
+                            "2022M01",
+                            "2022M02",
+                            "2022M03",
+                            "2022M04",
+                            "2022M05",
+                            "2022M06",
+                            "2022M07",
+                            "2022M08",
+                            "2022M09",
+                            "2022M10",
+                            "2022M11",
+                            "2022M12",
+                            "2023M01",
+                            "2023M02",
+                            "2023M03",
+                            "2023M04",
+                            "2023M05",
+                            "2023M06",
+                            "2023M07",
+                            "2023M08",
+                            "2023M09",
+                            "2023M10"
+                          ],
+                          "valueTexts": [
+                            "2006M01",
+                            "2006M02",
+                            "2006M03",
+                            "2006M04",
+                            "2006M05",
+                            "2006M06",
+                            "2006M07",
+                            "2006M08",
+                            "2006M09",
+                            "2006M10",
+                            "2006M11",
+                            "2006M12",
+                            "2007M01",
+                            "2007M02",
+                            "2007M03",
+                            "2007M04",
+                            "2007M05",
+                            "2007M06",
+                            "2007M07",
+                            "2007M08",
+                            "2007M09",
+                            "2007M10",
+                            "2007M11",
+                            "2007M12",
+                            "2008M01",
+                            "2008M02",
+                            "2008M03",
+                            "2008M04",
+                            "2008M05",
+                            "2008M06",
+                            "2008M07",
+                            "2008M08",
+                            "2008M09",
+                            "2008M10",
+                            "2008M11",
+                            "2008M12",
+                            "2009M01",
+                            "2009M02",
+                            "2009M03",
+                            "2009M04",
+                            "2009M05",
+                            "2009M06",
+                            "2009M07",
+                            "2009M08",
+                            "2009M09",
+                            "2009M10",
+                            "2009M11",
+                            "2009M12",
+                            "2010M01",
+                            "2010M02",
+                            "2010M03",
+                            "2010M04",
+                            "2010M05",
+                            "2010M06",
+                            "2010M07",
+                            "2010M08",
+                            "2010M09",
+                            "2010M10",
+                            "2010M11",
+                            "2010M12",
+                            "2011M01",
+                            "2011M02",
+                            "2011M03",
+                            "2011M04",
+                            "2011M05",
+                            "2011M06",
+                            "2011M07",
+                            "2011M08",
+                            "2011M09",
+                            "2011M10",
+                            "2011M11",
+                            "2011M12",
+                            "2012M01",
+                            "2012M02",
+                            "2012M03",
+                            "2012M04",
+                            "2012M05",
+                            "2012M06",
+                            "2012M07",
+                            "2012M08",
+                            "2012M09",
+                            "2012M10",
+                            "2012M11",
+                            "2012M12",
+                            "2013M01",
+                            "2013M02",
+                            "2013M03",
+                            "2013M04",
+                            "2013M05",
+                            "2013M06",
+                            "2013M07",
+                            "2013M08",
+                            "2013M09",
+                            "2013M10",
+                            "2013M11",
+                            "2013M12",
+                            "2014M01",
+                            "2014M02",
+                            "2014M03",
+                            "2014M04",
+                            "2014M05",
+                            "2014M06",
+                            "2014M07",
+                            "2014M08",
+                            "2014M09",
+                            "2014M10",
+                            "2014M11",
+                            "2014M12",
+                            "2015M01",
+                            "2015M02",
+                            "2015M03",
+                            "2015M04",
+                            "2015M05",
+                            "2015M06",
+                            "2015M07",
+                            "2015M08",
+                            "2015M09",
+                            "2015M10",
+                            "2015M11",
+                            "2015M12",
+                            "2016M01",
+                            "2016M02",
+                            "2016M03",
+                            "2016M04",
+                            "2016M05",
+                            "2016M06",
+                            "2016M07",
+                            "2016M08",
+                            "2016M09",
+                            "2016M10",
+                            "2016M11",
+                            "2016M12",
+                            "2017M01",
+                            "2017M02",
+                            "2017M03",
+                            "2017M04",
+                            "2017M05",
+                            "2017M06",
+                            "2017M07",
+                            "2017M08",
+                            "2017M09",
+                            "2017M10",
+                            "2017M11",
+                            "2017M12",
+                            "2018M01",
+                            "2018M02",
+                            "2018M03",
+                            "2018M04",
+                            "2018M05",
+                            "2018M06",
+                            "2018M07",
+                            "2018M08",
+                            "2018M09",
+                            "2018M10",
+                            "2018M11",
+                            "2018M12",
+                            "2019M01",
+                            "2019M02",
+                            "2019M03",
+                            "2019M04",
+                            "2019M05",
+                            "2019M06",
+                            "2019M07",
+                            "2019M08",
+                            "2019M09",
+                            "2019M10",
+                            "2019M11",
+                            "2019M12",
+                            "2020M01",
+                            "2020M02",
+                            "2020M03",
+                            "2020M04",
+                            "2020M05",
+                            "2020M06",
+                            "2020M07",
+                            "2020M08",
+                            "2020M09",
+                            "2020M10",
+                            "2020M11",
+                            "2020M12",
+                            "2021M01",
+                            "2021M02",
+                            "2021M03",
+                            "2021M04",
+                            "2021M05",
+                            "2021M06",
+                            "2021M07",
+                            "2021M08",
+                            "2021M09",
+                            "2021M10",
+                            "2021M11",
+                            "2021M12",
+                            "2022M01",
+                            "2022M02",
+                            "2022M03",
+                            "2022M04",
+                            "2022M05",
+                            "2022M06",
+                            "2022M07",
+                            "2022M08",
+                            "2022M09",
+                            "2022M10",
+                            "2022M11",
+                            "2022M12",
+                            "2023M01",
+                            "2023M02",
+                            "2023M03",
+                            "2023M04",
+                            "2023M05",
+                            "2023M06",
+                            "2023M07",
+                            "2023M08",
+                            "2023M09",
+                            "2023M10"
+                          ],
+                          "time": true
+                        }
+                      ]
+                    }
+                  },
+                  "Get available variables and values from table_id 07681": {
+                    "description": "",
+                    "value": {
+                      "title": "07681: Eksport av laks og regnbueørret, etter varehovedgruppe, statistikkvariabel og år",
+                      "variables": [
+                        {
+                          "code": "VareHoved1",
+                          "text": "varehovedgruppe",
+                          "values": [
+                            "100",
+                            "101",
+                            "102"
+                          ],
+                          "valueTexts": [
+                            "I alt",
+                            "Oppdrettet fisk hel, fersk og fryst",
+                            "Ferske og fryste fileter"
+                          ],
+                          "elimination": true
+                        },
+                        {
+                          "code": "ContentsCode",
+                          "text": "statistikkvariabel",
+                          "values": [
+                            "Laks",
+                            "Laks2",
+                            "Orret",
+                            "Orret2"
+                          ],
+                          "valueTexts": [
+                            "Laks (tonn)",
+                            "Laks (1 000 kr)",
+                            "Ørret (tonn)",
+                            "Ørret (1 000 kr)"
+                          ]
+                        },
+                        {
+                          "code": "Tid",
+                          "text": "år",
+                          "values": [
+                            "1971",
+                            "1972",
+                            "1973",
+                            "1974",
+                            "1975",
+                            "1976",
+                            "1977",
+                            "1978",
+                            "1979",
+                            "1980",
+                            "1981",
+                            "1982",
+                            "1983",
+                            "1984",
+                            "1985",
+                            "1986",
+                            "1987",
+                            "1988",
+                            "1989",
+                            "1990",
+                            "1991",
+                            "1992",
+                            "1993",
+                            "1994",
+                            "1995",
+                            "1996",
+                            "1997",
+                            "1998",
+                            "1999",
+                            "2000",
+                            "2001",
+                            "2002",
+                            "2003",
+                            "2004",
+                            "2005",
+                            "2006",
+                            "2007",
+                            "2008",
+                            "2009",
+                            "2010",
+                            "2011",
+                            "2012",
+                            "2013",
+                            "2014",
+                            "2015",
+                            "2016"
+                          ],
+                          "valueTexts": [
+                            "1971",
+                            "1972",
+                            "1973",
+                            "1974",
+                            "1975",
+                            "1976",
+                            "1977",
+                            "1978",
+                            "1979",
+                            "1980",
+                            "1981",
+                            "1982",
+                            "1983",
+                            "1984",
+                            "1985",
+                            "1986",
+                            "1987",
+                            "1988",
+                            "1989",
+                            "1990",
+                            "1991",
+                            "1992",
+                            "1993",
+                            "1994",
+                            "1995",
+                            "1996",
+                            "1997",
+                            "1998",
+                            "1999",
+                            "2000",
+                            "2001",
+                            "2002",
+                            "2003",
+                            "2004",
+                            "2005",
+                            "2006",
+                            "2007",
+                            "2008",
+                            "2009",
+                            "2010",
+                            "2011",
+                            "2012",
+                            "2013",
+                            "2014",
+                            "2015",
+                            "2016"
+                          ],
+                          "time": true
+                        }
+                      ]
+                    }
+                  }
                 }
               }
             }
@@ -183,36 +1058,41 @@
         }
       },
       "post": {
+        "x-openai-isConsequential": false,
         "tags": [
           "Table"
         ],
         "summary": "Get data from table by {id}.",
-        "description": "Step 3 request: Fetches data from specific table. Response from 'GetValidVariablesAndValuesById' for respective table_id must have been called beforehand to create a valid request with valid variables and values.",
+        "description": "Fetches data from specific table. Response from 'GetValidVariablesAndValuesById' for respective table_id must have been called beforehand to create a valid request with valid variables and values. Request body's query array must include all variables with at least one valid value.",
         "operationId": "GetTableDataByPost",
         "parameters": [
           {
             "name": "lang",
             "in": "path",
-            "description": "Two letter language code (ISO 639). If the user writes in Norwegian, language code 'no' MUST be used. Else use the default language code 'en' will be used.",
+            "description": "Specifies the language for requests and responses. Use 'no' for Norwegian/Norsk, and 'en' for English or any other language. Ensure all request parameters and data align with this language code. Adheres to ISO 639-1 codes.",
             "required": true,
             "allowEmptyValue": false,
             "schema": {
               "type": "string",
               "enum": [
-                "en",
-                "no"
+                "no",
+                "en"
               ],
               "minLength": 2,
               "maxLength": 2
             },
             "examples": {
-              "X1": {
+              "English Language Example:": {
                 "value": "en",
-                "summary": "For english"
+                "description": "Use 'en' for English queries. All request parameters and data will be processed in English. All request params and data MUST be in English."
               },
-              "X2": {
+              "Norwegian Language Example": {
                 "value": "no",
-                "summary": "For norwegian"
+                "description": "Select 'no' for Norwegian queries. Requests and responses are handled in Norwegian. All request params and data MUST be in Norwegian."
+              },
+              "Non-Norwegian and Non-English Language Example": {
+                "value": "en",
+                "description": "For languages other than Norwegian or English, use 'en'. All requests will be processed in English, matching the user's input language. All request params and data MUST be in English."
               }
             }
           },
@@ -253,31 +1133,34 @@
                       "properties": {
                         "code": {
                           "type": "string",
-                          "description": "The code of the variable to be queried (e.g., 'Kjonn', 'Alder')."
+                          "description": "The code of the variable to be queried (e.g., 'Kjonn', 'Alder', 'Tid', 'ContentsCode', etc)."
                         },
                         "selection": {
                           "type": "object",
-                          "description": "Details of an individual selection criterion.",
+                          "description": "Details of how to fetch variable values with filter, and which variable values that should be fetched. Valid value keys for the respective variable is listed in the previous operation 'GetValidVariablesAndValuesById'.",
                           "properties": {
                             "filter": {
                               "type": "string",
                               "enum": [
                                 "item",
-                                "all",
-                                "top"
+                                 "all"
                               ],
-                              "description": "Type of filter applied to the selection. '(item)' is the default and provides values for each variable in a list. '(all)' enables effectice value selection. Just '*' gives all values. '2019*' gives all values starting with 2019. '*M12' in a monthly table gives all Decembers for each year. '(top)' selects a number of the newest or first values. If '60' is used, the last 60 values is fetched."
+                              "description": "Type of filter applied to the selection. '(item)' is the default maps directly to the value keys listed in the previous operation 'GetValidVariablesAndValuesById' and provides values for each value key in a list. '(all)' enables effective value selection, but values can't be empty. Just '*' gives all values. '2019*' gives all values starting with 2019. '*M12' in a monthly table gives all Decembers for each year."
                             },
                             "values": {
                               "type": "array",
                               "minItems": 1,
-                              "description": "An array of selected values for the variable. Values depend on the variable's code which must match with response from operation 'GetValidVariablesAndValuesById'",
+                              "description": "Selected value keys for the variable must match the response from 'GetValidVariablesAndValuesById'. This can NEVER be empty, and must adhere to the list of value keys in operation 'GetValidVariablesAndValuesById'. Always use the 'values' from the response to match the user's request, or use (*) with '(all)'. If at any point you make up your own values, revisit the response from operation 'GetValidVariablesAndValuesById' to see which values are valid for the variable's code, and never deviate.",
                               "items": {
                                 "type": "string",
-                                "description": "A specific code value within the variable's code list."
+                                "description": "The specific value key within the variable's code list. Must match values from the response from 'GetValidVariablesAndValuesById'."
                               }
                             }
-                          }
+                          },
+                          "required": [
+                            "filter",
+                            "values"
+                          ]
                         }
                       },
                       "required": [
@@ -298,8 +1181,174 @@
                           "csv2",
                           "csv3"
                         ],
-                        "description": "Format of the response."
+                        "description": "Format of the response. json-stat2 is default."
                       }
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "Get table data from table_id 12880": {
+                  "description": "Request body for query on 'Sammenlign Bruttonasjonalprodukt og BNP Fastlands-Norge fra 2020 og ut' Time frame set to '2020-2026' based on latest year '2026' from 'GetValidVariablesAndValuesById' for table '12880'.",
+                  "value": {
+                    "query": [
+                      {
+                        "code": "ContentsCode",
+                        "selection": {
+                          "filter": "item",
+                          "values": [
+                            "BNP",
+                            "BNPFastland"
+                          ]
+                        }
+                      },
+                      {
+                        "code": "Tid",
+                        "selection": {
+                          "filter": "item",
+                          "values": [
+                            "2020",
+                            "2021",
+                            "2022",
+                            "2023",
+                            "2024",
+                            "2025",
+                            "2026"
+                          ]
+                        }
+                      }
+                    ],
+                    "response": {
+                      "format": "json-stat2"
+                    }
+                  }
+                },
+                "Get table data from table_id 13760": {
+                  "description": "Request body for query on 'Utvikling av ukesverk for begge kjønn, alder 15-74 år, sesongjustert over 3 måneder, de siste 2 årene' Time frame set to '2021M10-2023M10' based on latest month '2023M10' from 'GetValidVariablesAndValuesById' for table '13760'.",
+                  "value": {
+                    "query": [
+                      {
+                        "code": "Kjonn",
+                        "selection": {
+                          "filter": "item",
+                          "values": [
+                            "0"
+                          ]
+                        }
+                      },
+                      {
+                        "code": "Alder",
+                        "selection": {
+                          "filter": "item",
+                          "values": [
+                            "15-74"
+                          ]
+                        }
+                      },
+                      {
+                        "code": "Justering",
+                        "selection": {
+                          "filter": "item",
+                          "values": [
+                            "3MGG"
+                          ]
+                        }
+                      },
+                      {
+                        "code": "ContentsCode",
+                        "selection": {
+                          "filter": "item",
+                          "values": [
+                            "Ukeverk"
+                          ]
+                        }
+                      },
+                      {
+                        "code": "Tid",
+                        "selection": {
+                          "filter": "item",
+                          "values": [
+                            "2021M10",
+                            "2021M11",
+                            "2021M12",
+                            "2022M01",
+                            "2022M02",
+                            "2022M03",
+                            "2022M04",
+                            "2022M05",
+                            "2022M06",
+                            "2022M07",
+                            "2022M08",
+                            "2022M09",
+                            "2022M10",
+                            "2022M11",
+                            "2022M12",
+                            "2023M01",
+                            "2023M02",
+                            "2023M03",
+                            "2023M04",
+                            "2023M05",
+                            "2023M06",
+                            "2023M07",
+                            "2023M08",
+                            "2023M09",
+                            "2023M10"
+                          ]
+                        }
+                      }
+                    ],
+                    "response": {
+                      "format": "json-stat2"
+                    }
+                  }
+                },
+                "Get table data from table_id ": {
+                  "description": "Request body for user's query on 'Jeg ønsker å se utviklingen i eksport av laks og ørret fra 1998 til 2010'. The response from 'GetValidVariablesAndValuesById' for table_id: '07681' is used to create a valid request body. Since the user's query matches with available values, the correct years are used.",
+                  "value": {
+                    "query": [
+                      {
+                        "code": "VareHoved1",
+                        "selection": {
+                          "filter": "item",
+                          "values": [
+                            "100"
+                          ]
+                        }
+                      },
+                      {
+                        "code": "ContentsCode",
+                        "selection": {
+                          "filter": "item",
+                          "values": [
+                            "Laks",
+                            "Orret"
+                          ]
+                        }
+                      },
+                      {
+                        "code": "Tid",
+                        "selection": {
+                          "filter": "item",
+                          "values": [
+                            "1998",
+                            "1999",
+                            "2000",
+                            "2001",
+                            "2002",
+                            "2003",
+                            "2004",
+                            "2005",
+                            "2006",
+                            "2007",
+                            "2008",
+                            "2009",
+                            "2010"
+                          ]
+                        }
+                      }
+                    ],
+                    "response": {
+                      "format": "json-stat2"
                     }
                   }
                 }
