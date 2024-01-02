@@ -5,5 +5,6 @@ Alternatively, we can use a two-stage pipeline as follows: First, the base model
 ![Alt text](image.png)
 
 https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0
+30 min å laste modellen, og ca. 25 min å generere et bilde
 
 https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0
